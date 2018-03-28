@@ -8,6 +8,7 @@ package juego_luchador;
 import java.util.Random;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.ArrayList;
 
 
 /**
@@ -15,13 +16,20 @@ import java.util.concurrent.ThreadLocalRandom;
  * @author marclo
  */
 
+//This is an incomplete program, as such, it has various place-holders that do nothing other than presenting a message.
+
+//These place-holders will eventually be replaced with functioning lines of code.
+
+//Because I am still learning, some parts of the program are made with non optimal code, these sectiosn will eventually be replaced
+//as I gain more knowledge and experience.
+
+//Porque no puedo dejar de cambiar de un idioma al otro mientras programo, algunas partes del programa se presentan en Inglés y 
+//otras en Español.
+
 //WARNING
 
-//This is an incomplete program, as such, it has various place-holders that do nothing other than presenteing a message.
-
-//Theee place-holders will eventually be replaced with functioning lines of code.
-
-//Porque no puedo dejar de cambiar de un idioma al otro mientras programo, algunas partes del programa se presentan en Inglés y otras en Español.
+//This program keeps track of how many times you try to use a non-exiting command (or you simply make a mistake)
+//do this too many times and the program WILL CLOSE itself. This IS INTENTIONAL.
 public class Luchador_MarceloBustos {
 
     /**
@@ -102,7 +110,7 @@ public class Luchador_MarceloBustos {
                     menu(checker, list, numList,inventory);
                     break;
                 
-                case 4:fight();
+                case 4:fight(inventory);
             
                     menu(checker, list, numList,inventory);
                     break;
@@ -286,25 +294,37 @@ public class Luchador_MarceloBustos {
      }
 
     //método para pelear contra un monstruo (actualmente solo despliega un mensaje)
-    public static void fight(){
+    public static void fight(int[] inventory){
         
     //This is a place-holder
      System.out.println("This function is under development.");
+     
+     System.out.println("");
+     
+     System.out.println("");
+     
+     System.out.println("Here, have a free Item.");
+     
+     int newItem = createItem();
+     
+     
+         
      }
     
     //creación de la clase "Luchador"
     public static class Luchador{
         
-    String Name;
-    String Type;
-    int HP;
-    int ATK;
-    int DEF;
-    int SPD;
-    int RANK;
-    int ITEM;
+        //inicialización de los atributos de la clase Luchador
+        private String Name;
+        private String Type;
+        private int HP;
+        private int ATK;
+        private int DEF;
+        private int SPD;
+        private int RANK;
+        int ITEM;
    
-    
+        //para asignar los valores correspondienes a un Luchador
         public Luchador(){
             
             Name = darName();
@@ -666,12 +686,10 @@ public class Luchador_MarceloBustos {
                 System.out.println("");
             
         
-                int checker;
+                int itemAsk;
      
-                scan = new Scanner(System.in);
-     
-                checker = scan.nextInt();
-                
+                scan = new Scanner(System.in);  
+                          
                 System.out.println("");
                 
                 System.out.println("1) Yes");
@@ -680,7 +698,9 @@ public class Luchador_MarceloBustos {
                 
                 System.out.println("2) No");
                 
-                switch(numero){
+                itemAsk = scan.nextInt();
+                
+                switch(itemAsk){
     
                     case 1: 
                         
@@ -717,6 +737,14 @@ public class Luchador_MarceloBustos {
         }
       }
       
+    //método para "crear" objetos. (para ser llamada cuando muere un mostruo)
+    public static int createItem(){
+        
+        int Item = ThreadLocalRandom.current().nextInt(1, 3 + 1);
+        
+        return Item;
+    }
+    
     public static void main(String[] args) {
         // TODO code application logic here
         
