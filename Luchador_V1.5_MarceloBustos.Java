@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 //These place-holders will eventually be replaced with functioning lines of code.
 
-//Because I am still learning, some parts of the program are made with non optimal code, these sectiosn will eventually be replaced
+//Because I am still learning, some parts of the program are made with non optimal code, these sections will eventually be replaced
 //as I gain more knowledge and experience.
 
 //Porque no puedo dejar de cambiar de un idioma al otro mientras programo, algunas partes del programa se presentan en Inglés y 
