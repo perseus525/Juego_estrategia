@@ -1,4 +1,4 @@
-# testing
+# Indicaciones
 
 Todos los archivos que no sean "ejecutables" no son más que una lsita de los métodos, comandos, etc, que de alguna u otra manera afectan la clase respectiva, es decir, todos los métodos dentro de "Clase Luchador" afectan sólo a la clase "Luchador". El archivo "Menu" es una lista de los comandos de interacción con el usuario.
 
