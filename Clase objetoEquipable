@@ -1,0 +1,403 @@
+
+//Esta es una lista de todos los datos/comandos/métodos que se utilizan de algún modo la clase "objetoEquipable"
+
+//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de lso métodos funcione
+//dados los límites de mis conocimientos de programación.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+public class ObjetoEquipable {
+    
+    //creación de la clase "objetoEquipable"
+    public static class objetoEquipable{
+
+   //inicialización de los atributos de la clase pbjetoEquipable
+    private String nameItem;
+    
+    private int rankItem;
+    
+    private int value;
+    
+    private String stat;
+    
+    //constructor de la clase "objetoEquiable"
+    objetoEquipable(){
+        
+            this.nameItem = "Empty";
+            
+            this.value = 0;
+            
+            this.rankItem = 0;
+            
+            this.stat = "None";
+        }
+    
+    public void setItemName(String ItemName){}
+    }
+    
+    //método para crear un objetoEquipable "vacio". La idea de este método es ser usado para completar la creación de un Luchador.
+    public static Luchador_MarceloBustos.objetoEquipable createItem0(){
+    
+        //aqui se crea el objeto equipable "Empty", el cual no posee estadísticas.
+        
+        //este metodo es usado sólo durante la creación de un nuevo Luchador
+        Luchador_MarceloBustos.objetoEquipable item0 = new Luchador_MarceloBustos.objetoEquipable();
+    
+        setItemName("Empty");
+        
+        item0.rankItem = 0;
+        
+        item0.stat = "None";
+        
+        item0.value = 0;
+        
+        return item0;
+    }
+    
+    //método para mostrar un objetoEquipable
+    public static void mostrarItem(Luchador_MarceloBustos.objetoEquipable item){
+          
+        //este método  muestra el nombre y estadísticas del objeto seleccionado
+        //este método es llamado tanto como para mostrar el inventario, como para mostrar todas las estadísticas del Luchador
+        String Empty = "Empty";
+        
+        if(item. nameItem. equals( Empty )){
+            
+          System.out.println(item.nameItem);
+        }
+        
+        else{
+            
+           System.out.println("Item Name: " + item.nameItem);
+           
+           System.out.println("Item Rank: " + item.rankItem);
+           
+           System.out.println("Improved Stat: " + item.stat);
+           
+           System.out.println("Stat improvement: +" + item.value * item.rankItem);
+           
+           System.out.println("");
+           
+           System.out.println("");
+        }  
+      }
+      
+    //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
+    public static void equipItemsAsk(ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int checker){
+       
+        System.out.println("");
+        
+        System.out.println("");
+        
+        if( inventory.size() > 0){
+        
+        System.out.println("Do you wish to equip items? (WARNING: This action CANNOT be undone.)(Input number)");
+        
+        System.out.println("");
+     
+        System.out.println("1) Yes.");
+        
+        System.out.println("");
+        
+        System.out.println("2) No.");
+        
+        System.out.println("");
+        
+        System.out.println("3) I'd rather destroy one.");
+        
+        System.out.println("");
+        
+        int numero;
+     
+        Scanner scan = new Scanner(System.in);
+     
+        numero = scan.nextInt();
+        
+        respuestaEquipItemsAsk(numero, list, inventory, checker);
+    }
+         else{
+                System.out.println("You have no items. How about you go out there and KILL something?");
+         }
+      }
+    
+    //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
+    public static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int checker){
+    
+         switch(numero){
+    
+        case 1: System.out.println("");
+                
+                System.out.println("");
+                 
+                equipItemsChoose(list, inventory);
+            break;
+    
+        case 2: System.out.println("OK, let's just leave them there, gathering dust.");
+        
+                System.out.println("");
+                
+                System.out.println("");
+            break;
+    
+        case 3: System.out.println("Are you sure about that?");    
+         
+                System.out.println("");
+                
+                System.out.println("");
+         
+                System.out.println("");
+                
+                System.out.println("1) Yes");
+                
+                System.out.println("");
+                
+                System.out.println("2) No");
+                
+                int itemAsk;
+     
+                Scanner scan = new Scanner(System.in);
+                
+                itemAsk = scan.nextInt();
+                
+                switch(itemAsk){
+    
+                    case 1: System.out.println("");
+                            
+                        System.out.println("Sorry, but this function is under development.");
+
+                        System.out.println("");
+                        break;
+                        
+                    case 2: System.out.println("");
+                    
+                        System.out.println("That's what I thought.");
+                        
+                        System.out.println("");
+                        break;
+                        
+                    default:
+                        System.out.println("Command not recognized.");
+                        
+                        System.out.println("");
+                        
+                        System.out.println("");
+                        break;
+                }
+            break;
+
+        default:System.out.println("Command not recognized.");
+        
+        checker ++;
+        break;
+        }
+    }
+      
+    //metodo quele pregunta al Usuario "que?" objeto desea equipar a "cual?" Luchador y luego invoca a los metodos necesarios para equipar y borrar el objeto del inverntario
+    public static void equipItemsChoose(ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory){
+    
+        System.out.print("Which Fighter do you wish to equip with an Item?(Input number)");
+        
+        System.out.println("");
+        
+        mostrarListaSimple(list);
+        
+        int fighterNum;
+        
+        Scanner scan1 = new Scanner(System.in);
+                
+        fighterNum = scan1.nextInt(); 
+        
+        System.out.println("Which Item do you wish to equip?");
+        
+        System.out.println("");
+        
+        verInventario(inventory);
+        
+        int itemNum;
+        
+        Scanner scan2 = new Scanner(System.in);
+                
+        itemNum = scan2.nextInt();
+        
+        equipFighterWithItem(list.get(fighterNum - 1), inventory.get(itemNum -1));
+        
+        deleteItemFromInventory(inventory, itemNum -1);
+    }
+    
+    //metodo para equipar al Luchador con el objeto seleccionado
+    public static void equipFighterWithItem(Luchador_MarceloBustos.Luchador fighter, Luchador_MarceloBustos.objetoEquipable item){
+    
+        fighter.ITEM = item;   
+    }
+    
+    //metodo para borrar el obejto equipado de la lista del inventario
+    public static void deleteItemFromInventory(ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int itemNum){
+    
+        inventory.remove(itemNum);
+    
+    }
+    
+    //método para crear objetos (para ser llamada cuando muere un mostruo, función en desarrollo)
+    public static objetoEquipable createItem(){
+        
+        Luchador_MarceloBustos.objetoEquipable Item = new Luchador_MarceloBustos.objetoEquipable();
+        
+        Item.nameItem = darItemName();
+        
+        Item.rankItem = darItemRank();
+        
+        Item.stat = darItemStat(Item.nameItem);
+        
+        int itemValue = darItemValue() * Item.rankItem;
+        
+        Item.value = itemValue;
+        
+        return Item;
+    }
+    
+    //metodo que le asigna un nombre al objeto, basado en que estadistica mejora
+    public static String darItemName(){
+    
+        String itemName = new String();
+    
+        int randomNum = ThreadLocalRandom.current().nextInt(1, 4 + 1);
+           
+        int chooseItemName = randomNum;
+        
+        switch(chooseItemName){
+        
+            case 1: itemName = "Armor";
+            break;
+            
+            case 2: itemName = "Sword";
+            break;
+            
+            case 3: itemName = "Shield";
+            break;
+            
+            case 4: itemName = "Boots";
+            break;
+        }
+        
+        return itemName;
+    }
+    
+    //metodo que le asigna un "RANK" al objetoEquipable, basado un sistema de probalidades
+    public static int darItemRank(){
+    
+       int itemRank = 1;
+    
+           int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+                
+           if (randomNum == 100){
+           
+               itemRank = 10;
+           }
+           
+           else{
+               
+               if (randomNum > 97){
+               
+                   itemRank = 9;
+                   
+                 }
+               
+                    else{
+                   
+                        if(randomNum > 94){
+                   
+                        itemRank = 8;                       
+                       
+                        }
+                     
+                        else{
+                            if(randomNum > 90){
+                        
+                                itemRank = 7;
+                            }
+                            else{
+                                if(randomNum > 85){
+                                    
+                                    itemRank = 6;
+                                    }
+                                    else{
+                                        if(randomNum > 75){
+                                    
+                                        itemRank = 5;
+                                    
+                                        }
+                                        else{
+                                            if( randomNum > 60){
+                                        
+                                            itemRank = 4;
+                                            }
+                                            else{
+                                                if( randomNum > 40){
+                                                
+                                                    itemRank = 3;
+                                                    
+                                                }
+                                                else{
+                                                    if( randomNum > 20){
+                                                    
+                                                        itemRank = 2;
+                                                    
+                                                    }
+                                                    else{
+                                                        if( randomNum > 0){
+                                                        
+                                                            itemRank = 1;
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                }
+                            }
+                        }
+               }
+   }
+    
+       return itemRank;
+    }
+    
+    //metodo que le asigna una estadistica al objetoEquipable de manera aleatoria
+    public static String darItemStat(String itemName){
+        
+        String itemStat = "None";
+        
+        if (itemName .equals( "Armor") ){
+            
+            itemStat = "HP";
+        }
+
+        else if(itemName .equals ("Sword")){
+        
+            itemStat = "ATK";
+        }
+        
+        else if(itemName .equals ("Shield")){
+        
+            itemStat = "DEF";
+        }
+        
+        else if(itemName .equals ("Boots")){
+        
+            itemStat = "SPD";
+         }
+    
+    return itemStat;
+    }
+    
+    //metodo que le da un "valor" de manera aleatoria a un objetoEquipable("valor" es cuanto afecta a la estadistica correspondiente)
+    public static int darItemValue(){
+    
+        int itemValue = ThreadLocalRandom.current().nextInt(1, 9 + 1);    
+    
+    return itemValue;
+    }
+    
+}
