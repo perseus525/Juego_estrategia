@@ -44,7 +44,7 @@ public class ObjetoEquipable {
         //aqui se crea el objeto equipable "Empty", el cual no posee estadísticas.
         
         //este metodo es usado sólo durante la creación de un nuevo Luchador
-        Luchador_MarceloBustos.objetoEquipable item0 = new Luchador_MarceloBustos.objetoEquipable();
+        Luchador_MarceloBustos.objetoEquipable item0 = new objetoEquipable();
     
         setItemName("Empty");
         
@@ -58,7 +58,7 @@ public class ObjetoEquipable {
     }
     
     //método para mostrar un objetoEquipable
-    public static void mostrarItem(Luchador_MarceloBustos.objetoEquipable item){
+    public static void mostrarItem( objetoEquipable item){
           
         //este método  muestra el nombre y estadísticas del objeto seleccionado
         //este método es llamado tanto como para mostrar el inventario, como para mostrar todas las estadísticas del Luchador
@@ -86,7 +86,7 @@ public class ObjetoEquipable {
       }
       
     //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
-    public static void equipItemsAsk(ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int checker){
+    public static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
        
         System.out.println("");
         
@@ -124,7 +124,7 @@ public class ObjetoEquipable {
       }
     
     //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
-    public static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int checker){
+    public static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
     
          switch(numero){
     
@@ -196,7 +196,7 @@ public class ObjetoEquipable {
     }
       
     //metodo quele pregunta al Usuario "que?" objeto desea equipar a "cual?" Luchador y luego invoca a los metodos necesarios para equipar y borrar el objeto del inverntario
-    public static void equipItemsChoose(ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory){
+    public static void equipItemsChoose(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory){
     
         System.out.print("Which Fighter do you wish to equip with an Item?(Input number)");
         
@@ -228,13 +228,13 @@ public class ObjetoEquipable {
     }
     
     //metodo para equipar al Luchador con el objeto seleccionado
-    public static void equipFighterWithItem(Luchador_MarceloBustos.Luchador fighter, Luchador_MarceloBustos.objetoEquipable item){
+    public static void equipFighterWithItem(Luchador fighter,objetoEquipable item){
     
         fighter.ITEM = item;   
     }
     
     //metodo para borrar el obejto equipado de la lista del inventario
-    public static void deleteItemFromInventory(ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int itemNum){
+    public static void deleteItemFromInventory(ArrayList <objetoEquipable> inventory, int itemNum){
     
         inventory.remove(itemNum);
     
