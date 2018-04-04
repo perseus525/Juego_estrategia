@@ -29,7 +29,7 @@ public class Luchador {
         
         private int RANK;
         
-        private Luchador_MarceloBustos.objetoEquipable ITEM;
+        private objetoEquipable ITEM;
         
         
    
@@ -72,7 +72,7 @@ public class Luchador {
         //aqui se revisa cuantos Luchadores se tiene, de tenerse menos de 25 se crea uno nuevo
         if (list.size() < 25){
         
-            list.add(new Luchador_MarceloBustos.Luchador());  
+            list.add(new Luchador());  
          
             if(list.size() > 1){
                 
@@ -97,7 +97,7 @@ public class Luchador {
  
     
      //método para eliminar un Luchador
-    public static void eliminarLuchador(ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int checker){
+    public static void eliminarLuchador(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
 
         //aqui se revisa si hay o no Luchadores creados, de no haberlos, se le informa al usuario y regresa al menu 
         if (list.isEmpty()){
@@ -336,7 +336,7 @@ public class Luchador {
     }
     
     //este método muestra todas las estadíticas de un Luchador
-    public static void mostrarLuchadorCompleto(Luchador_MarceloBustos.Luchador Fighter) {
+    public static void mostrarLuchadorCompleto( Fighter) {
           
         
         //si el Luchador todavía posee el objeto "Empty", se muestra usando este codigo
@@ -367,7 +367,7 @@ public class Luchador {
    }
     
     //este metodo muestra todas las estadisticas del Luchador, junto con el efecto de su objeto equipado
-    public static void mostrarLuchadorConItem(Luchador_MarceloBustos.Luchador Fighter){
+    public static void mostrarLuchadorConItem (Fighter){
         
         System.out.println("");
         
@@ -452,7 +452,7 @@ public class Luchador {
     }   
     
     //metodo para mostrar al Luchador "simplificado"
-    public static void mostrarLuchadorSimple(Luchador_MarceloBustos.Luchador Fighter) {
+    public static void mostrarLuchadorSimple(Fighter) {
           
             System.out.println ("Name: " + Fighter.Name);
             
@@ -463,7 +463,7 @@ public class Luchador {
    }
   
     //metodo para ver las estadísiticas de un Luchador especifico
-    public static void mostrarUnLuchador(ArrayList <Luchador_MarceloBustos.Luchador> list){
+    public static void mostrarUnLuchador(ArrayList <Luchador> list){
     
         //aqui se le muetsra al usuario lso nombres de los Luchadores que tiene y se le pregunta cual desea revisar
         System.out.println("Input the number of the Fighter you wish to evaluate.");
@@ -488,7 +488,7 @@ public class Luchador {
     }
     
     //metodo para mostrar la lista completa de Luchadores con sus estadistica "simples"
-    public static void mostrarListaSimple(ArrayList <Luchador_MarceloBustos.Luchador> list){
+    public static void mostrarListaSimple(Luchador> list){
         
         System.out.println("Start of Fighter list");
         
@@ -512,7 +512,7 @@ public class Luchador {
     }
     
     //metodo para mostrar a todos los Luchadores con todos sus estadisticas
-    public static void mostrarTodo(ArrayList <Luchador_MarceloBustos.Luchador> list){
+    public static void mostrarTodo(ArrayList <Luchador> list){
     
     System.out.println("Start of Fighter list");
     
@@ -534,7 +534,7 @@ public class Luchador {
     }
     
     //metodo que mostrar los Luchadors de un "RANK" especifico
-    public static void mostrarRank(ArrayList <Luchador_MarceloBustos.Luchador> list, int RankAsk){
+    public static void mostrarRank(ArrayList <Luchador> list, int RankAsk){
         
         System.out.println("Start of Fighter list");
         
@@ -560,7 +560,7 @@ public class Luchador {
     }
     
      //metodo que muestra a todos los luchadores de un Tipo/elemento especifico
-    public static void mostrarType(ArrayList <Luchador_MarceloBustos.Luchador> list , int TypeAsk){
+    public static void mostrarType(ArrayList <Luchador> list , int TypeAsk){
 
         String CheckType = "";
         
