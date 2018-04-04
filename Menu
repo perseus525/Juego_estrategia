@@ -1,0 +1,394 @@
+
+//Esta es una lista de todos los datos/comandos/métodos que se utilizan de algún modo para interactuar con el usuario
+
+//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
+//dados los límites de mis conocimientos de programación.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+public class menu {
+    
+    //método para mostrar el menú por pantalla
+    public static void menu(int checker, ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory){
+         
+     System.out.println();
+     
+     System.out.println();
+         
+    if(checker < 4){
+     System.out.println("Welcome to Monster Slayer. You have " + list.size() + " Fighter(s).");
+     
+     System.out.println("You have made " + checker + " mistakes. Be careful");
+     
+     System.out.println("What is your command?");
+     
+     System.out.println("1) Check Fighters.");
+     
+     System.out.println("2) Check Inventory.");
+     
+     System.out.println("3) Create Fighter.");
+     
+     System.out.println("4) Dismiss a Fighter.");
+     
+     System.out.println("5) FIGHT!!!!!!!");
+     
+     System.out.println("6) Wuss out(leave).");
+     
+     System.out.println();
+     
+     System.out.println();
+     
+     //invocación a "respuesta menu" para que el usuario interactué con el juego
+     respuestaMenu(checker, list, inventory);
+        
+       }
+    else {
+    
+        System.out.println("THAT'S IT. I'M OUT.");
+        
+        System.out.println();
+                        
+        System.out.println();
+        
+        System.out.println("You pissed off a battle game and made it close itself.");
+        
+        System.out.println();
+                        
+        System.out.println("Are you proud of that?");
+        
+    }
+    
+     }
+     
+    //método que permite la interacción con el usuario al leer su input y llamar al método correspondiente
+    public static void respuestaMenu(int checker, ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory){
+    
+        //variable usada para leer el comando del usuario
+            int numero;
+                    
+            Scanner scan = new Scanner(System.in);
+     
+            numero = scan.nextInt();
+
+            //invocación al método correspondiente al comand ingresado por el usuario
+            //tódos los comandos terminan invocando nuevamente al método "menu",excepto el comando 6 (Wuss out) 
+            switch (numero) {
+            
+                case 1: mostrarListaAsk(list, inventory, checker);
+            
+                    menu(checker, list, inventory);
+                break;
+                
+                case 2: verInventario(inventory);
+            
+                    menu(checker, list, inventory);
+                break;
+                
+                case 3: crearLuchador (list);
+
+                    menu(checker, list, inventory);
+                break;
+                
+                case 4: eliminarLuchador(list, inventory, checker);
+                
+                    menu(checker, list, inventory);
+                break;
+                
+                case 5:fight(inventory);
+            
+                    menu(checker, list, inventory);
+                break;
+                
+                case 6: System.out.println("You COWARD. Come back when you find your courage.");
+                break;
+                
+                
+               //aquí se registra cada vez que el usuario intenta usar un comando que no existe en el juego
+                //usar demasiados conmandos invalidos cierra el jeugo y despliega un mensaje iformando al usuario
+                //la variable "checker" es la que es usada para llevar la cuenta de cuantos coamndos errados se han usado
+                default: 
+                    switch (checker) {
+                        
+                        case 0:
+                            
+                            System.out.println(); 
+                        
+                            System.out.println();
+                            
+                            System.out.println("How about you stick to the AVAILABLE comamands?");
+                        
+                            System.out.println();
+                        
+                            System.out.println();
+                        break;
+                        
+                    case 1:
+                        
+                        System.out.println();
+                        
+                        System.out.println();
+                        
+                        System.out.println("I'm warning you.");
+                        
+                        System.out.println();
+                        
+                        System.out.println();
+                    break;
+                      
+                    case 2:
+                        
+                        System.out.println();
+                        
+                        System.out.println();
+                        
+                        System.out.println("Last chance wise guy.");
+                        
+                        System.out.println();
+                        
+                        System.out.println();
+                    break;
+                        
+                    default:
+                    break;
+            }
+                    
+                    checker ++;
+                
+                    menu(checker, list, inventory);
+                    break;
+            }
+        }
+    
+     //método para preguntar con qué filtros se desea ver la lista de Luchadores
+    public static void mostrarListaAsk(ArrayList <Luchador_MarceloBustos.Luchador> list, ArrayList <Luchador_MarceloBustos.objetoEquipable> inventory, int checker){
+        
+        //este método pregunta al usuario que filtros desea aplicar a la lista de Luchadores y luego invoca a un metodo que interpreta la respuesta del usuario
+        
+        //de no tener Luchadores, el método despliega un mensaje indicándoselo al usuario y regresa al menu
+        
+        if (list.isEmpty()){
+        
+            System.out.println("You have no fighters.");
+        }
+        
+        else{
+           System.out.println("Which ones do you want to see? (Input number)");
+           
+           System.out.println("");
+          
+           System.out.println("1) All of them (simplified).");
+           
+           System.out.println("");
+           
+           System.out.println("2) All of them (with all their stats).");
+           
+           System.out.println("");
+           
+           System.out.println("3) The stats of a specific Fighter.");
+           
+           System.out.println("");
+          
+           System.out.println("4) Specific Rank.");
+           
+           System.out.println("");
+           
+           System.out.println("5) Specific Type.");
+           
+           System.out.println("");
+           
+           System.out.println("");
+              
+           int respuesta;
+     
+           Scanner scan = new Scanner(System.in);
+     
+           respuesta = scan.nextInt();
+           
+           respuestaMostrarLista(list, inventory, checker, respuesta);
+        }     
+    } 
+    
+    //metodo que invoca a los metodos necesarios para mostrar la lista con los filtros deseados
+     public static void respuestaMostrarLista(Luchador> list, ArrayList <objetoEquipable> inventory, int checker, int respuesta){
+    
+         switch (respuesta){
+               
+               case 1: System.out.println("Item Effects have already been added.");
+               
+                   System.out.println("");
+                   
+                   mostrarListaSimple (list);
+                   
+                   equipItemsAsk(list, inventory, checker);
+               break;
+               
+               case 2: System.out.println("Item Effects have already been added.");
+               
+                   System.out.println("");
+                   
+                   mostrarTodo (list);
+                   
+                   equipItemsAsk(list, inventory, checker);
+               break;
+               
+               case 3: System.out.println("Item Effects have already been added.");
+               
+                   System.out.println("");
+                   
+                   mostrarUnLuchador(list);
+                   
+                   equipItemsAsk(list, inventory, checker);
+               break;
+               
+               case 4: System.out.println("Item Effects have already been added.");
+               
+                   System.out.println("");
+                   
+                   mostrarRankAsk (list);
+                   
+                   equipItemsAsk(list, inventory, checker);
+               break;
+               
+               case 5: System.out.println("Item Effects have already been added.");
+               
+                   System.out.println("");
+               
+                   System.out.println("");
+                   
+                   mostrarTypeAsk (list);
+                   
+                   System.out.println("");
+                   
+                   System.out.println("");
+                   
+                   equipItemsAsk(list, inventory, checker);
+               break;
+               
+               default: System.out.println ("NOT POSSIBLE.");
+               
+                   System.out.println("");
+               
+                   System.out.println("");
+                   
+                   checker ++;
+                   
+                   mostrarListaAsk(list, inventory, checker);
+               
+                   System.out.println("");  
+               break;
+            }     
+    }
+     
+      //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
+    public static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
+       
+        System.out.println("");
+        
+        System.out.println("");
+        
+        if( inventory.size() > 0){
+        
+        System.out.println("Do you wish to equip items? (WARNING: This action CANNOT be undone.)(Input number)");
+        
+        System.out.println("");
+     
+        System.out.println("1) Yes.");
+        
+        System.out.println("");
+        
+        System.out.println("2) No.");
+        
+        System.out.println("");
+        
+        System.out.println("3) I'd rather destroy one.");
+        
+        System.out.println("");
+        
+        int numero;
+     
+        Scanner scan = new Scanner(System.in);
+     
+        numero = scan.nextInt();
+        
+        respuestaEquipItemsAsk(numero, list, inventory, checker);
+    }
+         else{
+                System.out.println("You have no items. How about you go out there and KILL something?");
+         }
+      }
+    
+    //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
+    public static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
+    
+         switch(numero){
+    
+        case 1: System.out.println("");
+                
+                System.out.println("");
+                 
+                equipItemsChoose(list, inventory);
+            break;
+    
+        case 2: System.out.println("OK, let's just leave them there, gathering dust.");
+        
+                System.out.println("");
+                
+                System.out.println("");
+            break;
+    
+        case 3: System.out.println("Are you sure about that?");    
+         
+                System.out.println("");
+                
+                System.out.println("");
+         
+                System.out.println("");
+                
+                System.out.println("1) Yes");
+                
+                System.out.println("");
+                
+                System.out.println("2) No");
+                
+                int itemAsk;
+     
+                Scanner scan = new Scanner(System.in);
+                
+                itemAsk = scan.nextInt();
+                
+                switch(itemAsk){
+    
+                    case 1: System.out.println("");
+                            
+                        System.out.println("Sorry, but this function is under development.");
+
+                        System.out.println("");
+                        break;
+                        
+                    case 2: System.out.println("");
+                    
+                        System.out.println("That's what I thought.");
+                        
+                        System.out.println("");
+                        break;
+                        
+                    default:
+                        System.out.println("Command not recognized.");
+                        
+                        System.out.println("");
+                        
+                        System.out.println("");
+                        break;
+                }
+            break;
+
+        default:System.out.println("Command not recognized.");
+        
+        checker ++;
+        break;
+        }
+    }
+   
