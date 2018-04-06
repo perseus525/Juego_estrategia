@@ -1,7 +1,7 @@
 
 //Esta es una lista de todos los datos/comandos/métodos que se utilizan de algún modo la clase "objetoEquipable"
 
-//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de lso métodos funcione
+//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
 //dados los límites de mis conocimientos de programación.
 
 import java.util.ArrayList;
@@ -35,18 +35,181 @@ public class ObjetoEquipable {
             this.stat = "None";
         }
     
-    public void setItemName(String ItemName){}
+    private void setItemName(String ItemName){}
     }
     
-    //método para crear un objetoEquipable "vacio". La idea de este método es ser usado para completar la creación de un Luchador.
-    public static Luchador_MarceloBustos.objetoEquipable createItem0(){
+//método que le pregunta al usario si desea o no filtrar sus "Items" por "Rank"
+    private static void verInventarioAsk( ArrayList < objetoEquipable > inventory){
+    
+         if(inventory.size() > 0){
+             
+            System.out.println("");
+             
+            System.out.println("");
+             
+            System.out.println("Do you wish to see all your items? Or only a specific Rank? (input number)");
+            
+            System.out.println("");
+        
+            System.out.println("1) All items");
+            
+            System.out.println("");
+        
+            System.out.println("2) Specific Rank");
+            
+            System.out.println("");
+            
+            System.out.println("");
+        
+            respuestaVerInventario( inventory);
+         }
+         else {
+            System.out.println("");
+            
+            System.out.println("");
+            
+            System.out.println("You have no items in your inventory.");
+            
+            System.out.println("");
+            
+            System.out.println("");
+        }
+    }
+    
+    //método que lee la repsuesta del usuario e invoca al método necesario para mostrar el invetario con o sin filtros
+    private static void respuestaVerInventario( ArrayList < objetoEquipable > inventory){ 
+        
+        int numero;
+                    
+        Scanner scan = new Scanner(System.in);
+     
+        numero = scan.nextInt();
+        
+        switch (numero) {
+            
+                case 1: verInventarioCompleto ( inventory );
+                break;
+                
+                case 2: askRankInventario(inventory);
+                break;
+                
+                default: System.out.println("THAT'S NOT HOW THIS WORKS!!!!!");
+                break;
+        } 
+    }
+    
+    //método que le pregunta al usuaior que "Rank" de "Items" desea ver
+    private static void askRankInventario(ArrayList < objetoEquipable > inventory){
+        
+        System.out.println("");
+        
+        System.out.println("");
+        
+        System.out.println("Which Item Rank would you like to see?(input number)");
+        
+        int rank;
+                    
+        Scanner scan = new Scanner(System.in);
+     
+        rank = scan.nextInt();
+
+        mostrarRankInventario(inventory, rank);
+    }
+    
+    //método para mostarr todos los objetos de un "Rank" específico en el inventario
+    private static void mostrarRankInventario( ArrayList <objetoEquipable> inventory, int rank){
+    
+        System.out.println("");
+        
+        System.out.println("");
+        
+        System.out.println("Inventory start.");
+        
+        System.out.println("");
+        
+        System.out.println("");
+        
+        //contador para mostrar la lista de objetosEquipables con "Rank" = rank
+        int j=1;
+        
+        for(int i = 0; i< inventory.size(); i++){
+                
+            if(inventory.get(i).rankItem == rank){
+                    
+            System.out.print(j + ") ");
+                   
+            j++;
+                
+            mostrarItem(inventory.get(i));
+            }
+        }
+            
+        if (j == 1){
+        
+            System.out.println("");
+            
+            System.out.println("");
+            
+            System.out.println("You have no Rank " + rank + " Items.");
+            
+            System.out.println("");
+            
+            System.out.println("What are you waiting for?? GO KILL MONSTERS!!!!!!");
+            
+            System.out.println("");
+        }
+        
+        System.out.println("");
+            
+        System.out.println("");
+        
+        System.out.println("Inventory end"); 
+        
+        System.out.println("");
+            
+        System.out.println("");       
+    
+    }
+    
+    //método para mostrar todo el inventario
+    private static void verInventarioCompleto(ArrayList <objetoEquipable> inventory){
+        
+        //este método muestra todos los objetos que el usuario posee en su inventario      
+        System.out.println();
+        
+        System.out.println();
+        
+        System.out.println("Inventory start.");
+        
+        System.out.println();
+        
+        for(int i = 0; i< inventory.size(); i++){
+            
+            System.out.print(i+1 + ")");
+                   
+            mostrarItem(inventory.get(i));
+        }
+            
+        System.out.println("");
+            
+        System.out.println("");
+        
+        System.out.println("Inventory end"); 
+        
+        System.out.println("");
+            
+        System.out.println("");       
+     }
+     
+     //método para crear un objetoEquipable "vacio". La idea de este método es ser usado para completar la creación de un Luchador.
+    private static objetoEquipable createItemZero(){
     
         //aqui se crea el objeto equipable "Empty", el cual no posee estadísticas.
         
         //este metodo es usado sólo durante la creación de un nuevo Luchador
-        Luchador_MarceloBustos.objetoEquipable item0 = new objetoEquipable();
+        objetoEquipable item0 = new objetoEquipable();
     
-        setItemName("Empty");
+        item0.nameItem = "Empty";
         
         item0.rankItem = 0;
         
@@ -57,8 +220,8 @@ public class ObjetoEquipable {
         return item0;
     }
     
-    //método para mostrar un objetoEquipable
-    public static void mostrarItem( objetoEquipable item){
+     //método para mostrar un objetoEquipable
+    private static void mostrarItem(objetoEquipable item){
           
         //este método  muestra el nombre y estadísticas del objeto seleccionado
         //este método es llamado tanto como para mostrar el inventario, como para mostrar todas las estadísticas del Luchador
@@ -86,7 +249,7 @@ public class ObjetoEquipable {
       }
       
     //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
-    public static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
+    private static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
        
         System.out.println("");
         
@@ -124,7 +287,7 @@ public class ObjetoEquipable {
       }
     
     //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
-    public static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
+    private static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
     
          switch(numero){
     
@@ -196,13 +359,13 @@ public class ObjetoEquipable {
     }
       
     //metodo quele pregunta al Usuario "que?" objeto desea equipar a "cual?" Luchador y luego invoca a los metodos necesarios para equipar y borrar el objeto del inverntario
-    public static void equipItemsChoose(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory){
+    private static void equipItemsChoose(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory){
     
         System.out.print("Which Fighter do you wish to equip with an Item?(Input number)");
         
         System.out.println("");
         
-        mostrarListaSimple(list);
+        mostrarListaLuchadorSimple(list);
         
         int fighterNum;
         
@@ -214,7 +377,7 @@ public class ObjetoEquipable {
         
         System.out.println("");
         
-        verInventario(inventory);
+        verInventarioCompleto(inventory);
         
         int itemNum;
         
@@ -228,22 +391,15 @@ public class ObjetoEquipable {
     }
     
     //metodo para equipar al Luchador con el objeto seleccionado
-    public static void equipFighterWithItem(Luchador fighter,objetoEquipable item){
+    private static void equipFighterWithItem(Luchador fighter, objetoEquipable item){
     
-        fighter.ITEM = item;   
-    }
-    
-    //metodo para borrar el obejto equipado de la lista del inventario
-    public static void deleteItemFromInventory(ArrayList <objetoEquipable> inventory, int itemNum){
-    
-        inventory.remove(itemNum);
-    
+        fighter.item = item;   
     }
     
     //método para crear objetos (para ser llamada cuando muere un mostruo, función en desarrollo)
-    public static objetoEquipable createItem(){
+    private static objetoEquipable createItem(){
         
-        Luchador_MarceloBustos.objetoEquipable Item = new Luchador_MarceloBustos.objetoEquipable();
+        objetoEquipable Item = new objetoEquipable();
         
         Item.nameItem = darItemName();
         
@@ -259,7 +415,7 @@ public class ObjetoEquipable {
     }
     
     //metodo que le asigna un nombre al objeto, basado en que estadistica mejora
-    public static String darItemName(){
+    private static String darItemName(){
     
         String itemName = new String();
     
@@ -286,7 +442,7 @@ public class ObjetoEquipable {
     }
     
     //metodo que le asigna un "RANK" al objetoEquipable, basado un sistema de probalidades
-    public static int darItemRank(){
+    private static int darItemRank(){
     
        int itemRank = 1;
     
@@ -365,7 +521,7 @@ public class ObjetoEquipable {
     }
     
     //metodo que le asigna una estadistica al objetoEquipable de manera aleatoria
-    public static String darItemStat(String itemName){
+    private static String darItemStat(String itemName){
         
         String itemStat = "None";
         
@@ -393,11 +549,16 @@ public class ObjetoEquipable {
     }
     
     //metodo que le da un "valor" de manera aleatoria a un objetoEquipable("valor" es cuanto afecta a la estadistica correspondiente)
-    public static int darItemValue(){
+    private static int darItemValue(){
     
         int itemValue = ThreadLocalRandom.current().nextInt(1, 9 + 1);    
     
     return itemValue;
     }
     
-}
+     //metodo para borrar el obejto equipado de la lista del inventario
+    private static void deleteItemFromInventory(ArrayList <objetoEquipable> inventory, int itemNum){
+    
+        inventory.remove(itemNum);
+    }
+   
