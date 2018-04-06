@@ -1,0 +1,86 @@
+
+//Esta es una lista de todos los datos/comandos/métodos que se utilizan de algún modo la clase "Monstruo"
+
+//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
+//dados los límites de mis conocimientos de programación.
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+//creación de la clase "Monstruo"
+    public static class Monstruo{
+    
+        private String name;
+        
+        private String type;
+        
+        private int hp;
+        
+        private int atk;
+        
+        private int def;
+        
+        private int spd;
+        
+        private objetoEquipable itemDrop;
+        
+        Monstruo(){
+            
+            this.name = " Monstruo ";
+
+            this.hp = darHpMonstruo();
+            
+            this.atk = darAtkMonstruo();
+        
+            this.def = darDEF();
+        
+            this.def = darSPD();
+        
+            this.type = darType();
+            
+            this.itemDrop = createItem();
+        }  
+    }
+    
+     //método para asignarle la HP a un Monstruo de manera aleatoria
+    private static int darHpMonstruo(){
+    
+        int randomNum = ThreadLocalRandom.current().nextInt(3500, 4000 + 1);
+           
+        int HP = randomNum;
+           
+    return HP;
+    }
+    
+    //método para asignar el ATK de un Monstruo de manera aleatoria
+    private static int darAtkMonstruo(){
+    
+           int randomNum = ThreadLocalRandom.current().nextInt(1000, 1500 + 1);
+                
+           int ATK = randomNum;
+           
+    return ATK;
+    }
+    
+     //este método muestra todas las estadíticas de un Monstruo
+    private static void mostrarMonstruo(Monstruo monster){
+    
+        System.out.println ("Name: " + monster.name);
+            
+        System.out.println ("Type: " + monster.type);
+            
+        System.out.println ("HP: " + monster.hp);
+            
+        System.out.println ("ATK: " + monster.atk);
+            
+        System.out.println ("DEF: " + monster.def);
+            
+        System.out.println ("SPD: " + monster.spd);
+            
+        mostrarItem(monster.itemDrop);  
+    }
+    
+    
+    
