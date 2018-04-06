@@ -64,6 +64,27 @@ import java.util.concurrent.ThreadLocalRandom;
     return ATK;
     }
     
+      //método para asignar la DEF de un Monstruo de manera aleatoria
+    private static int darDEF(){
+    
+          int randomNum = ThreadLocalRandom.current().nextInt(5, 25 + 1);
+                
+          int DEF = randomNum;
+           
+    return DEF;
+    }
+     
+    //método para asignar la SPD de un Monstruo de manera aleatoria
+    private static int darSPD(){
+    
+           int randomNum = ThreadLocalRandom.current().nextInt(10, 100 + 1);
+                
+           int SPD = randomNum;
+           
+    return SPD;
+    }
+    
+    
      //este método muestra todas las estadíticas de un Monstruo
     private static void mostrarMonstruo(Monstruo monster){
     
