@@ -9,9 +9,7 @@ import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public class ObjetoEquipable {
-    
-    //creación de la clase "objetoEquipable"
+ //creación de la clase "objetoEquipable"
     public static class objetoEquipable{
 
    //inicialización de los atributos de la clase pbjetoEquipable
@@ -34,173 +32,8 @@ public class ObjetoEquipable {
             
             this.stat = "None";
         }
-    
-    private void setItemName(String ItemName){}
     }
     
-//método que le pregunta al usario si desea o no filtrar sus "Items" por "Rank"
-    private static void verInventarioAsk( ArrayList < objetoEquipable > inventory){
-    
-         if(inventory.size() > 0){
-             
-            System.out.println("");
-             
-            System.out.println("");
-             
-            System.out.println("Do you wish to see all your items? Or only a specific Rank? (input number)");
-            
-            System.out.println("");
-        
-            System.out.println("1) All items");
-            
-            System.out.println("");
-        
-            System.out.println("2) Specific Rank");
-            
-            System.out.println("");
-            
-            System.out.println("");
-        
-            respuestaVerInventario( inventory);
-         }
-         else {
-            System.out.println("");
-            
-            System.out.println("");
-            
-            System.out.println("You have no items in your inventory.");
-            
-            System.out.println("");
-            
-            System.out.println("");
-        }
-    }
-    
-    //método que lee la repsuesta del usuario e invoca al método necesario para mostrar el invetario con o sin filtros
-    private static void respuestaVerInventario( ArrayList < objetoEquipable > inventory){ 
-        
-        int numero;
-                    
-        Scanner scan = new Scanner(System.in);
-     
-        numero = scan.nextInt();
-        
-        switch (numero) {
-            
-                case 1: verInventarioCompleto ( inventory );
-                break;
-                
-                case 2: askRankInventario(inventory);
-                break;
-                
-                default: System.out.println("THAT'S NOT HOW THIS WORKS!!!!!");
-                break;
-        } 
-    }
-    
-    //método que le pregunta al usuaior que "Rank" de "Items" desea ver
-    private static void askRankInventario(ArrayList < objetoEquipable > inventory){
-        
-        System.out.println("");
-        
-        System.out.println("");
-        
-        System.out.println("Which Item Rank would you like to see?(input number)");
-        
-        int rank;
-                    
-        Scanner scan = new Scanner(System.in);
-     
-        rank = scan.nextInt();
-
-        mostrarRankInventario(inventory, rank);
-    }
-    
-    //método para mostarr todos los objetos de un "Rank" específico en el inventario
-    private static void mostrarRankInventario( ArrayList <objetoEquipable> inventory, int rank){
-    
-        System.out.println("");
-        
-        System.out.println("");
-        
-        System.out.println("Inventory start.");
-        
-        System.out.println("");
-        
-        System.out.println("");
-        
-        //contador para mostrar la lista de objetosEquipables con "Rank" = rank
-        int j=1;
-        
-        for(int i = 0; i< inventory.size(); i++){
-                
-            if(inventory.get(i).rankItem == rank){
-                    
-            System.out.print(j + ") ");
-                   
-            j++;
-                
-            mostrarItem(inventory.get(i));
-            }
-        }
-            
-        if (j == 1){
-        
-            System.out.println("");
-            
-            System.out.println("");
-            
-            System.out.println("You have no Rank " + rank + " Items.");
-            
-            System.out.println("");
-            
-            System.out.println("What are you waiting for?? GO KILL MONSTERS!!!!!!");
-            
-            System.out.println("");
-        }
-        
-        System.out.println("");
-            
-        System.out.println("");
-        
-        System.out.println("Inventory end"); 
-        
-        System.out.println("");
-            
-        System.out.println("");       
-    
-    }
-    
-    //método para mostrar todo el inventario
-    private static void verInventarioCompleto(ArrayList <objetoEquipable> inventory){
-        
-        //este método muestra todos los objetos que el usuario posee en su inventario      
-        System.out.println();
-        
-        System.out.println();
-        
-        System.out.println("Inventory start.");
-        
-        System.out.println();
-        
-        for(int i = 0; i< inventory.size(); i++){
-            
-            System.out.print(i+1 + ")");
-                   
-            mostrarItem(inventory.get(i));
-        }
-            
-        System.out.println("");
-            
-        System.out.println("");
-        
-        System.out.println("Inventory end"); 
-        
-        System.out.println("");
-            
-        System.out.println("");       
-     }
-     
      //método para crear un objetoEquipable "vacio". La idea de este método es ser usado para completar la creación de un Luchador.
     private static objetoEquipable createItemZero(){
     
@@ -220,7 +53,9 @@ public class ObjetoEquipable {
         return item0;
     }
     
-     //método para mostrar un objetoEquipable
+    
+    
+    //método para mostrar un objetoEquipable
     private static void mostrarItem(objetoEquipable item){
           
         //este método  muestra el nombre y estadísticas del objeto seleccionado
@@ -248,149 +83,7 @@ public class ObjetoEquipable {
         }  
       }
       
-    //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
-    private static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
-       
-        System.out.println("");
-        
-        System.out.println("");
-        
-        if( inventory.size() > 0){
-        
-        System.out.println("Do you wish to equip items? (WARNING: This action CANNOT be undone.)(Input number)");
-        
-        System.out.println("");
-     
-        System.out.println("1) Yes.");
-        
-        System.out.println("");
-        
-        System.out.println("2) No.");
-        
-        System.out.println("");
-        
-        System.out.println("3) I'd rather destroy one.");
-        
-        System.out.println("");
-        
-        int numero;
-     
-        Scanner scan = new Scanner(System.in);
-     
-        numero = scan.nextInt();
-        
-        respuestaEquipItemsAsk(numero, list, inventory, checker);
-    }
-         else{
-                System.out.println("You have no items. How about you go out there and KILL something?");
-         }
-      }
-    
-    //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
-    private static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
-    
-         switch(numero){
-    
-        case 1: System.out.println("");
-                
-                System.out.println("");
-                 
-                equipItemsChoose(list, inventory);
-            break;
-    
-        case 2: System.out.println("OK, let's just leave them there, gathering dust.");
-        
-                System.out.println("");
-                
-                System.out.println("");
-            break;
-    
-        case 3: System.out.println("Are you sure about that?");    
-         
-                System.out.println("");
-                
-                System.out.println("");
-         
-                System.out.println("");
-                
-                System.out.println("1) Yes");
-                
-                System.out.println("");
-                
-                System.out.println("2) No");
-                
-                int itemAsk;
-     
-                Scanner scan = new Scanner(System.in);
-                
-                itemAsk = scan.nextInt();
-                
-                switch(itemAsk){
-    
-                    case 1: System.out.println("");
-                            
-                        System.out.println("Sorry, but this function is under development.");
-
-                        System.out.println("");
-                        break;
-                        
-                    case 2: System.out.println("");
-                    
-                        System.out.println("That's what I thought.");
-                        
-                        System.out.println("");
-                        break;
-                        
-                    default:
-                        System.out.println("Command not recognized.");
-                        
-                        System.out.println("");
-                        
-                        System.out.println("");
-                        break;
-                }
-            break;
-
-        default:System.out.println("Command not recognized.");
-        
-        checker ++;
-        break;
-        }
-    }
-      
-    //metodo quele pregunta al Usuario "que?" objeto desea equipar a "cual?" Luchador y luego invoca a los metodos necesarios para equipar y borrar el objeto del inverntario
-    private static void equipItemsChoose(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory){
-    
-        System.out.print("Which Fighter do you wish to equip with an Item?(Input number)");
-        
-        System.out.println("");
-        
-        mostrarListaLuchadorSimple(list);
-        
-        int fighterNum;
-        
-        Scanner scan1 = new Scanner(System.in);
-                
-        fighterNum = scan1.nextInt(); 
-        
-        System.out.println("Which Item do you wish to equip?");
-        
-        System.out.println("");
-        
-        verInventarioCompleto(inventory);
-        
-        int itemNum;
-        
-        Scanner scan2 = new Scanner(System.in);
-                
-        itemNum = scan2.nextInt();
-        
-        equipFighterWithItem(list.get(fighterNum - 1), inventory.get(itemNum -1));
-        
-        deleteItemFromInventory(inventory, itemNum -1);
-    }
-    
-    //metodo para equipar al Luchador con el objeto seleccionado
+       //metodo para equipar al Luchador con el objeto seleccionado
     private static void equipFighterWithItem(Luchador fighter, objetoEquipable item){
     
         fighter.item = item;   
@@ -445,78 +138,19 @@ public class ObjetoEquipable {
     private static int darItemRank(){
     
        int itemRank = 1;
-    
-           int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
-                
-           if (randomNum == 100){
+       
+       int [] rankList = {20, 40, 60, 75, 85, 90, 94, 97, 99};
            
-               itemRank = 10;
-           }
+       int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
            
-           else{
+       for(int i =0; i < rankList.length; i++){
+           
+            if (randomNum > rankList [i]){
                
-               if (randomNum > 97){
-               
-                   itemRank = 9;
-                   
-                 }
-               
-                    else{
-                   
-                        if(randomNum > 94){
-                   
-                        itemRank = 8;                       
-                       
-                        }
-                     
-                        else{
-                            if(randomNum > 90){
-                        
-                                itemRank = 7;
-                            }
-                            else{
-                                if(randomNum > 85){
-                                    
-                                    itemRank = 6;
-                                    }
-                                    else{
-                                        if(randomNum > 75){
-                                    
-                                        itemRank = 5;
-                                    
-                                        }
-                                        else{
-                                            if( randomNum > 60){
-                                        
-                                            itemRank = 4;
-                                            }
-                                            else{
-                                                if( randomNum > 40){
-                                                
-                                                    itemRank = 3;
-                                                    
-                                                }
-                                                else{
-                                                    if( randomNum > 20){
-                                                    
-                                                        itemRank = 2;
-                                                    
-                                                    }
-                                                    else{
-                                                        if( randomNum > 0){
-                                                        
-                                                            itemRank = 1;
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                }
-                            }
-                        }
-               }
-   }
-    
+                itemRank = itemRank + 1;
+            }
+        }  
+
        return itemRank;
     }
     
@@ -561,4 +195,5 @@ public class ObjetoEquipable {
     
         inventory.remove(itemNum);
     }
-   
+    
+      
