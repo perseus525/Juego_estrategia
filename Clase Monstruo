@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-
 //creación de la clase "Monstruo"
     public static class Monstruo{
     
@@ -28,7 +27,7 @@ import java.util.concurrent.ThreadLocalRandom;
         
         Monstruo(){
             
-            this.name = " Monstruo ";
+            this.name = darNameMonstruo();
 
             this.hp = darHpMonstruo();
             
@@ -41,10 +40,27 @@ import java.util.concurrent.ThreadLocalRandom;
             this.type = darType();
             
             this.itemDrop = createItem();
-        }  
+        }
+        
     }
     
-     //método para asignarle la HP a un Monstruo de manera aleatoria
+    
+     //método para darle un nombre a un mosntruo
+    private static String darNameMonstruo(){
+    
+        //este método selciona uno de los nombres disponibles de manera aleatoria y  se lo asigna al nuevo Luchador 
+        
+        String nameList[] ={"Asmodeus", "Chimera", "Cthulhu", "Ymir", "Medusa", "Lilith", "Goblin King", "Manticore", "Dracula", "Orochi", "Bill Cipher"};
+        
+        int randomNum = ThreadLocalRandom.current().nextInt(0, (nameList.length));
+
+        String name = nameList[randomNum];
+        
+        return name;
+        }
+    
+    
+      //método para asignarle la HP a un Monstruo de manera aleatoria
     private static int darHpMonstruo(){
     
         int randomNum = ThreadLocalRandom.current().nextInt(3500, 4000 + 1);
@@ -54,7 +70,20 @@ import java.util.concurrent.ThreadLocalRandom;
     return HP;
     }
     
-    //método para asignar el ATK de un Monstruo de manera aleatoria
+    
+     //método para asignar una facción/Tipo/Elemento a un Luchador de manera aleatoria
+    private static String darType(){
+       
+       String[] typeList = { "Fire", "Water", "Earth"};
+       
+       int randomNum = ThreadLocalRandom.current().nextInt(0, typeList.length);
+        
+        String type = typeList[randomNum];
+
+    return type;
+    }
+    
+     //método para asignar el ATK de un Monstruo de manera aleatoria
     private static int darAtkMonstruo(){
     
            int randomNum = ThreadLocalRandom.current().nextInt(1000, 1500 + 1);
@@ -64,7 +93,8 @@ import java.util.concurrent.ThreadLocalRandom;
     return ATK;
     }
     
-      //método para asignar la DEF de un Monstruo de manera aleatoria
+    
+    //método para asignar la DEF de un Luchador o Monstruo de manera aleatoria
     private static int darDEF(){
     
           int randomNum = ThreadLocalRandom.current().nextInt(5, 25 + 1);
@@ -74,7 +104,7 @@ import java.util.concurrent.ThreadLocalRandom;
     return DEF;
     }
      
-    //método para asignar la SPD de un Monstruo de manera aleatoria
+    //método para asignar la SPD de un Luchador o Monstruo de manera aleatoria
     private static int darSPD(){
     
            int randomNum = ThreadLocalRandom.current().nextInt(10, 100 + 1);
@@ -82,25 +112,6 @@ import java.util.concurrent.ThreadLocalRandom;
            int SPD = randomNum;
            
     return SPD;
-    }
-    
-    
-     //este método muestra todas las estadíticas de un Monstruo
-    private static void mostrarMonstruo(Monstruo monster){
-    
-        System.out.println ("Name: " + monster.name);
-            
-        System.out.println ("Type: " + monster.type);
-            
-        System.out.println ("HP: " + monster.hp);
-            
-        System.out.println ("ATK: " + monster.atk);
-            
-        System.out.println ("DEF: " + monster.def);
-            
-        System.out.println ("SPD: " + monster.spd);
-            
-        mostrarItem(monster.itemDrop);  
     }
     
     
