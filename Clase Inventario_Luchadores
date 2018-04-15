@@ -1,0 +1,131 @@
+/Esta es una lista de todos los datos/comandos/métodos que utilizan de algún modo la clase "Inventario_Items"
+
+//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
+//dados los límites de mis conocimientos de programación.
+//Mantener en mente que en el ejecutable la clase "Inventario_Items" es en realidad un "Array List" llamado "List".
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+ //metodo para mostrar la lista completa de Luchadores con sus estadistica "simples"
+    private static void mostrarListaLuchadorSimple(ArrayList <Luchador> list){
+        
+        System.out.println("Start of Fighter list");
+        
+                for(int i = 0; i< list.size(); i++){
+                    
+                   System.out.println("");
+                    
+                   System.out.println("");
+                    
+                   System.out.print(i+1 + ")");
+                               
+                   mostrarLuchadorSimple(list.get(i));
+                   
+                   System.out.println("");
+                    
+                   System.out.println("");
+                }
+                
+          System.out.println("End of Fighter list ");
+    
+    }
+    
+    //metodo para mostrar a todos los Luchadores con todos sus estadisticas
+    private static void mostrarTodoLuchador(ArrayList <Luchador> list){
+    
+    System.out.println("Start of Fighter list");
+    
+                for(int i = 0; i< list.size(); i++){
+                    
+                   System.out.println("");
+                    
+                   System.out.println("");
+                    
+                   System.out.print(i+1 + ")");
+                   
+                   mostrarLuchadorCompleto(list.get(i));
+                   
+                   System.out.println("");
+                   
+                   System.out.println("");
+                } 
+          System.out.println("End of Fighter list ");
+    }
+    
+    //metodo que mostrar los Luchadors de un "RANK" especifico
+    private static void mostrarRankLuchador(ArrayList <Luchador> list, int RankAsk){
+        
+        System.out.println("Start of Fighter list");
+        
+                for(int i = 0; i< list.size(); i++){
+                   
+                   if(list.get(i).getRank() == RankAsk ){
+                       
+                       System.out.println("");
+                       
+                       System.out.println("");
+                       
+                       mostrarLuchadorCompleto(list.get(i));
+                       
+                       System.out.println("");
+                       
+                       System.out.println("");
+                    }  
+                }
+                
+          System.out.println("End of Fighter list ");
+        
+    
+    }
+    
+    
+   //metodo que muestra a todos los luchadores de un Tipo/elemento especifico
+    private static void mostrarTypeLuchador(ArrayList <Luchador> list , int TypeAsk){
+
+        String CheckType = "";
+        
+        //aqui se revisa cual fue el Tipo/Elemento pedido por el usuario
+        switch (TypeAsk){
+               
+               case 1: CheckType = "Fire";
+               break;
+               
+               case 2: CheckType = "Water";
+               break;
+               
+               case 3: CheckType = "Earth";
+               break;
+        }
+        
+        //aqui se muetsra todos los Luchadores del Tipo/Elemetnos pedido
+        System.out.println("Start of Fighter list");
+        
+                int j=1;
+        
+                for(int i = 0; i< list.size(); i++){
+                   
+                   if(list.get(i).getType() .equals( CheckType )){
+                       
+                       System.out.println("");
+                       
+                       System.out.println("");
+                       
+                       System.out.print("j)");
+                       
+                       mostrarLuchadorCompleto(list.get(i));
+                       
+                       System.out.println("");
+                       
+                       System.out.println("");
+                       
+                       j++;
+                      }  
+                }    
+          System.out.println("End of Fighter list ");
+    }
+
+    
+    
