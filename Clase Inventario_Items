@@ -1,1 +1,100 @@
 
+//Esta es una lista de todos los datos/comandos/métodos que utilizan de algún modo la clase "Inventario_Items"
+
+//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
+//dados los límites de mis conocimientos de programación.
+//Mantener en mente que en el ejecutable la clase "Inventario_Items" es en realidad un "Array List".
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+
+//método para mostarr todos los objetos de un "Rank" específico en el inventario
+    private static void mostrarRankInventario( ArrayList <objetoEquipable> inventory, int rank){
+    
+        System.out.println("");
+        
+        System.out.println("");
+        
+        System.out.println("Inventory start.");
+        
+        System.out.println("");
+        
+        System.out.println("");
+        
+        //contador para mostrar la lista de objetosEquipables con "Rank" = rank
+        int j=1;
+        
+        for(int i = 0; i< inventory.size(); i++){
+                
+            if(inventory.get(i).rankItem == rank){
+                    
+            System.out.print(j + ") ");
+                   
+            j++;
+                
+            mostrarItem(inventory.get(i));
+            }
+        }
+            
+        if (j == 1){
+        
+            System.out.println("");
+            
+            System.out.println("");
+            
+            System.out.println("You have no Rank " + rank + " Items.");
+            
+            System.out.println("");
+            
+            System.out.println("What are you waiting for?? GO KILL MONSTERS!!!!!!");
+            
+            System.out.println("");
+        }
+        
+        System.out.println("");
+            
+        System.out.println("");
+        
+        System.out.println("Inventory end"); 
+        
+        System.out.println("");
+            
+        System.out.println("");       
+    
+    }
+    
+    
+      //método para mostrar todo el inventario
+    private static void verInventarioCompleto(ArrayList <objetoEquipable> inventory){
+        
+        //este método muestra todos los objetos que el usuario posee en su inventario      
+        System.out.println();
+        
+        System.out.println();
+        
+        System.out.println("Inventory start.");
+        
+        System.out.println();
+        
+        for(int i = 0; i< inventory.size(); i++){
+            
+            System.out.print(i+1 + ")");
+                   
+            mostrarItem(inventory.get(i));
+        }
+            
+        System.out.println("");
+            
+        System.out.println("");
+        
+        System.out.println("Inventory end"); 
+        
+        System.out.println("");
+            
+        System.out.println("");       
+     }
+ 
+ 
+ 
