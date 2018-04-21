@@ -1,67 +1,84 @@
-
-//Esta es una lista de todos los datos/comandos/métodos que se utilizan de algún modo para interactuar con el usuario
-
-//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
-//dados los límites de mis conocimientos de programación.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package juego_estrategia_prototype;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.ThreadLocalRandom;
 
-//método para mostrar el menú por pantalla
-    private static void menu(int checker, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, ArrayList <Luchador> party){
-         
-     System.out.println();
-     
-     System.out.println();
-         
-    if(checker < 4){
-     System.out.println("Welcome to Monster Slayer. You have " + list.size() + " Fighter(s).");
-     
-     System.out.println("You have made " + checker + " mistakes. Be careful");
-     
-     System.out.println("What is your command?(input number)");
-     
-     System.out.println("1) Check Fighters.");
-     
-     System.out.println("2) Check Inventory.");
-     
-     System.out.println("3) Create Fighter.");
-     
-     System.out.println("4) Dismiss a Fighter.");
-     
-     System.out.println("5) FIGHT!!!!!!!");
-     
-     System.out.println("6) Wuss out(leave).");
-     
-     System.out.println();
-     
-     System.out.println();
-     
-     //invocación a "respuesta menu" para que el usuario interactué con el juego
-     respuestaMenu(checker, list, inventory, party);
-        
-       }
-    else {
+/**
+ *
+ * @author marclo
+ */
+public class Menu {
     
-        System.out.println("THAT'S IT. I'M OUT.");
+    //método para mostrar el menú por pantalla
+public static void menu(int checker, ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, ArrayList <Fighter.Luchador> party){
+         
+    System.out.println();
+     
+    System.out.println();
         
-        System.out.println();
+    //si "list" no posee Luchadores, el juego termina
+    if (list.size() > 0){
+    
+        if(checker < 4){
+        
+            System.out.println("Welcome to Monster Slayer. You have " + list.size() + " Fighter(s).");
+     
+            System.out.println("You have made " + checker + " mistakes. Be careful");
+     
+            System.out.println("What is your command?(input number)");
+     
+            System.out.println("1) Check Fighters.");
+     
+            System.out.println("2) Check Inventory.");
+     
+            System.out.println("3) Create Fighter.");
+            
+            System.out.println("4) Dismiss a Fighter.");
+            
+            System.out.println("5) FIGHT!!!!!!!");
+     
+            System.out.println("6) Wuss out(leave).");
+     
+            System.out.println();
+     
+            System.out.println();
+     
+            //invocación a "respuesta menu" para que el usuario interactué con el juego
+            respuestaMenu(checker, list, inventory, party);
+        }
+    
+        else{
+    
+            System.out.println("THAT'S IT. I'M OUT.");
+        
+            System.out.println();
                         
-        System.out.println();
+            System.out.println();
         
-        System.out.println("You pissed off a battle game and made it close itself.");
+            System.out.println("You pissed off a battle game and made it close itself.");
         
-        System.out.println();
+            System.out.println();
                         
-        System.out.println("Are you proud of that?");
-        
+            System.out.println("Are you proud of that?"); 
+        }
     }
-    
-     }
+    else {
+        
+        System.out.println("You got EVRYONE KILLED.");
+        
+        System.out.println("");
+        
+        System.out.println("Get. The fuck. OUT.");
+    }
+}
      
-    //método que permite la interacción con el usuario al leer su input y llamar al método correspondiente
-    private static void respuestaMenu(int checker, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, ArrayList <Luchador> party){
+//método que permite la interacción con el usuario al leer su input y llamar al método correspondiente
+private static void respuestaMenu(int checker, ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, ArrayList <Fighter.Luchador> party){
     
         //variable usada para leer el comando del usuario
             int numero;
@@ -74,29 +91,29 @@ import java.util.concurrent.ThreadLocalRandom;
             //tódos los comandos terminan invocando nuevamente al método "menu",excepto el comando 6 (Wuss out) 
             switch (numero) {
             
-                case 1: mostrarListaAsk(list, inventory, checker);
+                case 1: listaL.mostrarListaAsk(list, inventory, checker);
             
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 2: verInventarioAsk(inventory);
+                case 2: inventario.verInventarioAsk(inventory);
             
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 3: crearLuchador (list);
+                case 3: Fighter.crearLuchador (list);
 
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 4: eliminarLuchadorAsk(list, inventory, checker);
+                case 4: Fighter.eliminarLuchadorAsk(list, inventory, checker);
                 
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 5: Monstruo monster = new Monstruo();
+                case 5: Monstruo.monstruo monster = new Monstruo.monstruo();
                     
-                    fight(inventory, monster, list, party);
+                    Fight.hunt(inventory, monster, list, party);
             
                     menu(checker, list, inventory, party);
                 break;
@@ -161,492 +178,5 @@ import java.util.concurrent.ThreadLocalRandom;
             }
         }
 
-    //método que le pregunta al usario si desea o no filtrar sus "Items" por "Rank"
-    private static void verInventarioAsk( ArrayList < objetoEquipable > inventory){
     
-         if(inventory.size() > 0){
-             
-            System.out.println("");
-             
-            System.out.println("");
-             
-            System.out.println("Do you wish to see all your items? Or only a specific Rank? (input number)");
-            
-            System.out.println("");
-        
-            System.out.println("1) All items");
-            
-            System.out.println("");
-        
-            System.out.println("2) Specific Rank");
-            
-            System.out.println("");
-            
-            System.out.println("");
-        
-            respuestaVerInventario( inventory);
-         }
-         else {
-            System.out.println("");
-            
-            System.out.println("");
-            
-            System.out.println("You have no items in your inventory.");
-            
-            System.out.println("");
-            
-            System.out.println("");
-        }
-    }
-    
-    //método que lee la repsuesta del usuario e invoca al método necesario para mostrar el invetario con o sin filtros
-    private static void respuestaVerInventario( ArrayList < objetoEquipable > inventory){ 
-        
-        int numero;
-                    
-        Scanner scan = new Scanner(System.in);
-     
-        numero = scan.nextInt();
-        
-        switch (numero) {
-            
-                case 1: verInventarioCompleto ( inventory );
-                break;
-                
-                case 2: askRankInventario(inventory);
-                break;
-                
-                default: System.out.println("THAT'S NOT HOW THIS WORKS!!!!!");
-                break;
-        } 
-    }
-    
-    //método que le pregunta al usuaior que "Rank" de "Items" desea ver
-    private static void askRankInventario(ArrayList < objetoEquipable > inventory){
-        
-        System.out.println("");
-        
-        System.out.println("");
-        
-        System.out.println("Which Item Rank would you like to see?(input number)");
-        
-        int rank;
-                    
-        Scanner scan = new Scanner(System.in);
-     
-        rank = scan.nextInt();
-
-        mostrarRankInventario(inventory, rank);
-    }
-    
-    //método para mostarr todos los objetos de un "Rank" específico en el inventario
-    private static void mostrarRankInventario( ArrayList <objetoEquipable> inventory, int rank){
-    
-        System.out.println("");
-        
-        System.out.println("");
-        
-        System.out.println("Inventory start.");
-        
-        System.out.println("");
-        
-        System.out.println("");
-        
-        //contador para mostrar la lista de objetosEquipables con "Rank" = rank
-        int j=1;
-        
-        for(int i = 0; i< inventory.size(); i++){
-                
-            if(inventory.get(i).rankItem == rank){
-                    
-            System.out.print(j + ") ");
-                   
-            j++;
-                
-            mostrarItem(inventory.get(i));
-            }
-        }
-            
-        if (j == 1){
-        
-            System.out.println("");
-            
-            System.out.println("");
-            
-            System.out.println("You have no Rank " + rank + " Items.");
-            
-            System.out.println("");
-            
-            System.out.println("What are you waiting for?? GO KILL MONSTERS!!!!!!");
-            
-            System.out.println("");
-        }
-        
-        System.out.println("");
-            
-        System.out.println("");
-        
-        System.out.println("Inventory end"); 
-        
-        System.out.println("");
-            
-        System.out.println("");       
-    
-    }
-    
-    
-    //método que pregunta que Luchador se quiere eliminar
-    private static void eliminarLuchadorAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
-
-        //aqui se revisa si hay o no Luchadores creados, de no haberlos, se le informa al usuario y regresa al menu 
-        if (list.isEmpty()){
-        
-            System.out.println("You have no fighters. Get your lazy ass in gear and recruit some.");
-        }
-        else{
-        
-            System.out.println("Which coward are you exiling?(Input number)");
-            
-            mostrarListaLuchadorSimple(list);
-        
-            int numero;
-     
-            Scanner scan = new Scanner(System.in);
-     
-            numero = scan.nextInt();
-            
-             eliminarLuchador(list, (numero - 1));
-            
-        }  
 }
-       
-        //método para preguntar con qué filtros se desea ver la lista de Luchadores
-    private static void mostrarListaAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
-        
-        //este método pregunta al usuario que filtros desea aplicar a la lista de Luchadores y luego invoca a un metodo que interpreta la respuesta del usuario
-        
-        //de no tener Luchadores, el método despliega un mensaje indicándoselo al usuario y regresa al menu
-        
-        if (list.isEmpty()){
-        
-            System.out.println("You have no fighters.");
-        }
-        
-        else{
-           System.out.println("Which ones do you want to see? (Input number)");
-           
-           System.out.println("");
-          
-           System.out.println("1) All of them (simplified).");
-           
-           System.out.println("");
-           
-           System.out.println("2) All of them (with all their stats).");
-           
-           System.out.println("");
-           
-           System.out.println("3) The stats of a specific Fighter.");
-           
-           System.out.println("");
-          
-           System.out.println("4) Specific Rank.");
-           
-           System.out.println("");
-           
-           System.out.println("5) Specific Type.");
-           
-           System.out.println("");
-           
-           System.out.println("");
-              
-           int respuesta;
-     
-           Scanner scan = new Scanner(System.in);
-     
-           respuesta = scan.nextInt();
-           
-           respuestaMostrarLista(list, inventory, checker, respuesta);
-        }     
-    } 
-    
-    //metodo que invoca a los metodos necesarios para mostrar la lista con los filtros deseados
-    private static void respuestaMostrarLista(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker, int respuesta){
-    
-         switch (respuesta){
-               
-               case 1: System.out.println("Item Effects have already been added.");
-               
-                   System.out.println("");
-                   
-                   mostrarListaLuchadorSimple (list);
-                   
-                   equipItemsAsk(list, inventory, checker);
-               break;
-               
-               case 2: System.out.println("Item Effects have already been added.");
-               
-                   System.out.println("");
-                   
-                   mostrarTodoLuchador (list);
-                   
-                   equipItemsAsk(list, inventory, checker);
-               break;
-               
-               case 3: System.out.println("Item Effects have already been added.");
-               
-                   System.out.println("");
-                   
-                   mostrarUnLuchador(list);
-                   
-                   equipItemsAsk(list, inventory, checker);
-               break;
-               
-               case 4: System.out.println("Item Effects have already been added.");
-               
-                   System.out.println("");
-                   
-                   mostrarRankLuchadorAsk (list);
-                   
-                   equipItemsAsk(list, inventory, checker);
-               break;
-               
-               case 5: System.out.println("Item Effects have already been added.");
-               
-                   System.out.println("");
-               
-                   System.out.println("");
-                   
-                   mostrarTypeLuchadorAsk (list);
-                   
-                   System.out.println("");
-                   
-                   System.out.println("");
-                   
-                   equipItemsAsk(list, inventory, checker);
-               break;
-               
-               default: System.out.println ("NOT POSSIBLE.");
-               
-                   System.out.println("");
-               
-                   System.out.println("");
-                   
-                   checker ++;
-                   
-                   mostrarListaAsk(list, inventory, checker);
-               
-                   System.out.println("");  
-               break;
-            }     
-    }
-    
-    
-      //metodo que le pregunta al usuario que "RANK" de Luchadores desea ver e invoca al metodo necesario para mostrar dlos Luchadores pedidos
-    private static void mostrarRankLuchadorAsk(ArrayList <Luchador> list){
-        
-        System.out.println("Which Ranked warriors do you wish to see?");
-        
-        System.out.println("");
-        
-        System.out.println("1) RANK 1");
-        
-        System.out.println("");
-        
-        System.out.println("2) RANK 2");
-        
-        System.out.println("");
-        
-        System.out.println("3) RANK 3");
-        
-        System.out.println("");
-        
-        System.out.println("4) RANK 4");
-        
-        System.out.println("");
-        
-        System.out.println("5) RANK 5");
-        
-        System.out.println("");
-    
-        int RankAsk;
-     
-        Scanner scan = new Scanner(System.in);
-     
-        RankAsk = scan.nextInt();
-        
-        mostrarRankLuchador (list, RankAsk);   
-    }
-    
-    
-     //metodo que le pregunta al usuario que Tipo/elemento de Luchadores desea ver e invoca al metodo necesario para mostrarlos
-    private static void mostrarTypeLuchadorAsk(ArrayList <Luchador> list){
-        
-        System.out.println("Which warrior Type do you wish to see?(Input number)");
-        
-        System.out.println("1) Fire.");
-        
-        System.out.println("");
-        
-        System.out.println("2) Water.");
-        
-        System.out.println("");
-        
-        System.out.println("3) Earth.");
-        
-        System.out.println("");
-        
-        int TypeAsk;
-     
-        Scanner scan = new Scanner(System.in);
-     
-        TypeAsk = scan.nextInt();
-        
-        mostrarTypeLuchador (list, TypeAsk);   
-    }
-    
-    
-      //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
-    private static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
-       
-        System.out.println("");
-        
-        System.out.println("");
-        
-        if( inventory.size() > 0){
-        
-        System.out.println("Do you wish to equip items? (WARNING: This action CANNOT be undone.)(Input number)");
-        
-        System.out.println("");
-     
-        System.out.println("1) Yes.");
-        
-        System.out.println("");
-        
-        System.out.println("2) No.");
-        
-        System.out.println("");
-        
-        System.out.println("3) I'd rather destroy one.");
-        
-        System.out.println("");
-        
-        int numero;
-     
-        Scanner scan = new Scanner(System.in);
-     
-        numero = scan.nextInt();
-        
-        respuestaEquipItemsAsk(numero, list, inventory, checker);
-    }
-         else{
-                System.out.println("You have no items. How about you go out there and KILL something?");
-         }
-      }
-    
-    //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
-    private static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory, int checker){
-    
-         switch(numero){
-    
-        case 1: System.out.println("");
-                
-                System.out.println("");
-                 
-                equipItemsChoose(list, inventory);
-            break;
-    
-        case 2: System.out.println("OK, let's just leave them there, gathering dust.");
-        
-                System.out.println("");
-                
-                System.out.println("");
-            break;
-    
-        case 3: System.out.println("Are you sure about that?");    
-         
-                System.out.println("");
-                
-                System.out.println("");
-         
-                System.out.println("");
-                
-                System.out.println("1) Yes");
-                
-                System.out.println("");
-                
-                System.out.println("2) No");
-                
-                int itemAsk;
-     
-                Scanner scan = new Scanner(System.in);
-                
-                itemAsk = scan.nextInt();
-                
-                switch(itemAsk){
-    
-                    case 1: System.out.println("");
-                            
-                        System.out.println("Sorry, but this function is under development.");
-
-                        System.out.println("");
-                        break;
-                        
-                    case 2: System.out.println("");
-                    
-                        System.out.println("That's what I thought.");
-                        
-                        System.out.println("");
-                        break;
-                        
-                    default:
-                        System.out.println("Command not recognized.");
-                        
-                        System.out.println("");
-                        
-                        System.out.println("");
-                        break;
-                }
-            break;
-
-        default:System.out.println("Command not recognized.");
-        
-        checker ++;
-        break;
-        }
-    }
-      
-    //metodo quele pregunta al Usuario "que?" objeto desea equipar a "cual?" Luchador y luego invoca a los metodos necesarios para equipar y borrar el objeto del inverntario
-    private static void equipItemsChoose(ArrayList <Luchador> list, ArrayList <objetoEquipable> inventory){
-    
-        System.out.print("Which Fighter do you wish to equip with an Item?(Input number)");
-        
-        System.out.println("");
-        
-        mostrarListaLuchadorSimple(list);
-        
-        int fighterNum;
-        
-        Scanner scan1 = new Scanner(System.in);
-                
-        fighterNum = scan1.nextInt(); 
-        
-        System.out.println("Which Item do you wish to equip?");
-        
-        System.out.println("");
-        
-        verInventarioCompleto(inventory);
-        
-        int itemNum;
-        
-        Scanner scan2 = new Scanner(System.in);
-                
-        itemNum = scan2.nextInt();
-        
-        equipFighterWithItem(list.get(fighterNum - 1), inventory.get(itemNum -1));
-        
-        deleteItemFromInventory(inventory, itemNum -1);
-    }
-    
-    
-    
-       
