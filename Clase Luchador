@@ -1,22 +1,30 @@
-
-//Esta es una lista de todos los datos/comandos/métodos que utilizan de algún modo la clase "Luchador"
-
-//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
-//dados los límites de mis conocimientos de programación.
-
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package juego_estrategia_prototype;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 
-public static class Luchador{
+/**
+ *
+ * @author marclo
+ */
+public class Fighter {
+    
+    
+    //creación de la clase "Luchador"
+    public static class Luchador{
         
         //inicialización de los atributos de la clase Luchador
         private String name;
         
         private String type;
         
-        private int hp;
+        private double hp;
         
         private int atk;
         
@@ -26,10 +34,8 @@ public static class Luchador{
         
         private int rank;
         
-        private objetoEquipable item;
-        
-        
-   
+        private Objetos.objetoEquipable item;
+
         //constructor de la clase Luchador
         Luchador(){
             
@@ -43,27 +49,44 @@ public static class Luchador{
         
             this.def = darDEF() * rank;
         
-            this.def = darSPD() * rank;
+            this.spd = darSPDL() * rank;
         
             this.type = darType();
             
-            this.item = createItemZero();
+            this.item = Objetos.createItemZero();
         }
         
     //los "gets" que se han necesitado hasta el momento, esta lista pudiese aumentar en el futuro
-    public String getName(){
+    public String getNameL(){
             return name;}    
     
-    public int getRank(){
+    public int getRankL(){
             return rank;} 
     
-    public String getType(){
+    public String getTypeL(){
             return type;} 
-    }
     
+    public int getATKL(){
+            return atk;} 
+    
+    public int getDEFL(){
+            return def;} 
+    
+    public double getHPL(){
+            return hp;} 
+    
+    public double setHPL(double n){
+            return hp = n;} 
+    
+    public double setSPDL(int n){
+            return spd = n;} 
+    
+    public int getSPDL(){
+            return spd;} 
+     }
     
     //método para crear un luchador de manera aleatoria 
-    private static void crearLuchador(ArrayList <Luchador> list){
+    public static void crearLuchador(ArrayList <Luchador> list){
         
         //este método crea un nuevo Luchador y muetsra sus estadísticas por pantalla
         
@@ -75,38 +98,60 @@ public static class Luchador{
             if(list.size() > 1){
                 
                 //invocacion el metodo que revisa los nombres repetidos
-                checkName(list, (list.get( (list.size () - 1) ). getName()));
+                checkName(list, (list.get( (list.size () - 1) ). getNameL()));
           
             }
           
           System.out.println("Your new Fighter is: "); 
          
           //invocacion al metodo que muestra a un Luchador con todas sus estadisticas
-            mostrarLuchadorCompleto(list.get(list.size()-1));
-          
+            mostrarLuchadorCompleto(list.get(list.size()-1));  
         }
     
         else{
             
-        System.out.println("You cannot have any more fighters.");
-        
+        System.out.println("You cannot have any more fighters."); 
         }
      }
      
+    //método para preguntar si se desea eliminar un luchador
+    public static void eliminarLuchadorAsk(ArrayList <Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker){
+
+        //aqui se revisa si hay o no Luchadores creados, de no haberlos, se le informa al usuario y regresa al menu 
+        if (list.isEmpty()){
+        
+            System.out.println("You have no fighters. Get your lazy ass in gear and recruit some.");
+        }
+        else{
+        
+            System.out.println("Which coward are you exiling?(Input number)");
+            
+            listaL.mostrarListaLuchadorSimple(list);
+        
+            int numero;
      
-     //metodo para eliminar al luchador
-    private static void eliminarLuchador(ArrayList <Luchador> list, int fighterID){
+            Scanner scan = new Scanner(System.in);
+     
+            numero = scan.nextInt();
+            
+             eliminarLuchador(list, (numero - 1));         
+        }  
+}
+        
+    //metodo para eliminar al luchador
+    public static void eliminarLuchador(ArrayList <Luchador> list, int fighterID){
     
         list.remove(fighterID);
     }
-     //método para asignarle un nombre a un Luchador
+    
+    //método para asignarle un nombre a un Luchador
     private static String darNameLuchador(){
 
         //este método selciona uno de los nombres disponibles de manera aleatoria y  se lo asigna al nuevo Luchador 
         
         String nameList[] ={"Jack", "Jill", "Peter", "Ayla", "Kirtash","Lucy", "Mordecai", "Leliana", "David", "Lethaline", "Arthur", "Leticia",
                             "Marcus", "Morgana", "Frederick", "Krysta", "Kaiser", "Echo", "Zack", "Susan", "Hector", "Chain", "Soul", "Memphis", 
-                            "Leroy", "Hana", "Kentaro", "Misaki", "Wilfred", "Kohakuren"};
+                            "Leroy", "Hana", "Kentaro", "Misaki", "Wilfred", "Kohakuren", "Greil", "Astrid", "Tormod", "Daphne"};
         
         int randomNum = ThreadLocalRandom.current().nextInt(0, (nameList.length));
 
@@ -115,9 +160,8 @@ public static class Luchador{
         return nombre;
     }
     
-    
-     //método para revisar los nombres de los luchadroes y así evitar la repetición de nombres
-    private static void checkName(ArrayList <Luchador> list, String checkName){
+    //método para revisar los nombres de los luchadroes y así evitar la repetición de nombres
+    public static void checkName(ArrayList <Luchador> list, String checkName){
         
         //este método revisa el nombre del último Luchador creado y lo compara con todos los nombres de los Luchadores creados anteriormente
         //si el nombre del Luchador nuevo ya está en uso, invoca al método "darName", asigna un nuevo nombre y luego lo compara con los nombres de
@@ -127,7 +171,7 @@ public static class Luchador{
         
         while ( i >= 0){
                         
-            if(list.get(i).getName() .equals( checkName )){
+            if(list.get(i).getNameL() .equals( checkName )){
                 
                     list. get ( list.size () - 1).name = darNameLuchador();
                     
@@ -138,9 +182,8 @@ public static class Luchador{
             i--;
         }       
     }
-    
-    
-    //método para asignar una facción/Tipo/Elemento a un Luchador de manera aleatoria
+       
+    //método para asignar una Facción/Tipo/Elemento a un Luchador de manera aleatoria
     private static String darType(){
        
        String[] typeList = { "Fire", "Water", "Earth"};
@@ -152,7 +195,6 @@ public static class Luchador{
     return type;
     }
     
-    
     //método para asignar la HP de un Luchador de manera aleatoria
     private static int darHpLuchador(){        
            
@@ -163,7 +205,6 @@ public static class Luchador{
     return HP;
     }
     
-    
     //método para asignar el ATK de un Luchador de manera aleatoria
     private static int darAtkLuchador(){
     
@@ -173,6 +214,8 @@ public static class Luchador{
            
     return ATK;
     }
+    
+    //método para asignar la DEF de un Luchador de manera aleatoria
      private static int darDEF(){
     
           int randomNum = ThreadLocalRandom.current().nextInt(5, 25 + 1);
@@ -182,9 +225,8 @@ public static class Luchador{
     return DEF;
     }
      
-     
     //método para asignar la SPD de un Luchador o Monstruo de manera aleatoria
-    private static int darSPD(){
+    private static int darSPDL(){
     
            int randomNum = ThreadLocalRandom.current().nextInt(10, 100 + 1);
                 
@@ -192,8 +234,7 @@ public static class Luchador{
            
     return SPD;
     }
-     
-     
+      
     //método para asignar las estrellas de un Luchador basado un sistema de probabilidad
     private static int darRankLuchador(){
          
@@ -217,13 +258,12 @@ public static class Luchador{
     return rank;
     }
     
-    
     //este método muestra todas las estadíticas de un Luchador
-    private static void mostrarLuchadorCompleto(Luchador Fighter) {
+    public static void mostrarLuchadorCompleto(Luchador Fighter) {
           
         
         //si el Luchador todavía posee el objeto "Empty", se muestra usando este codigo
-        if (Fighter.item.nameItem .equals ("Empty")){
+        if (Fighter.item.getNameO() .equals ("Empty")){
             
             System.out.println ("Name: " + Fighter.name);
             
@@ -239,7 +279,7 @@ public static class Luchador{
             
             System.out.println ("SPD: " + Fighter.spd);
             
-            mostrarItem(Fighter.item);   
+            Objetos.mostrarItem(Fighter.item);   
         }
         
         //si el Luchador posee cualquier otro objeto, se invoca al metodo necesario
@@ -249,11 +289,10 @@ public static class Luchador{
         }
    }
    
-   
     //este metodo muestra todas las estadisticas del Luchador, junto con el efecto de su objeto equipado
     private static void mostrarLuchadorConItem(Luchador Fighter){
         
-        int hp = Fighter.hp;
+        double hp = Fighter.hp;
         
         int atk = Fighter.atk;
         
@@ -261,18 +300,18 @@ public static class Luchador{
         
         int spd = Fighter.spd;
         
-        switch (Fighter.item.nameItem) {
+        switch (Fighter.item.getNameO()) {
 
-            case "Boots": spd = (Fighter.spd + Fighter.item.value * Fighter.item.rankItem);
+            case "Boots": spd = (Fighter.spd + Fighter.item.getValueO() * Fighter.item.getRankO());
                 break;
                 
-            case "Armor": hp = (Fighter.hp + Fighter.item.value * Fighter.item.rankItem);
+            case "Armor": hp = (Fighter.hp + Fighter.item.getValueO() * Fighter.item.getRankO());
                 break;
                 
-            case "Sword": atk = (Fighter.atk + Fighter.item.value * Fighter.item.rankItem);
+            case "Sword": atk = (Fighter.atk + Fighter.item.getValueO() * Fighter.item.getRankO());
                 break;
                 
-            case "Shield": def = (Fighter.def + Fighter.item.value * Fighter.item.rankItem);
+            case "Shield": def = (Fighter.def + Fighter.item.getValueO() * Fighter.item.getRankO());
                 break;
         }
         
@@ -292,16 +331,15 @@ public static class Luchador{
                 
         System.out.println ("SPD: " + spd);
                 
-        mostrarItem(Fighter.item);
+        Objetos.mostrarItem(Fighter.item);
         
         System.out.println("");
       
         System.out.println("");
     }  
     
-    
-     //metodo para mostrar al Luchador "simplificado"
-    private static void mostrarLuchadorSimple(Luchador Fighter) {
+    //metodo para mostrar al Luchador "simplificado"
+    public static void mostrarLuchadorSimple(Luchador Fighter) {
           
             System.out.println ("Name: " + Fighter.name);
             
@@ -311,9 +349,8 @@ public static class Luchador{
 
    }
   
-  
     //metodo para ver las estadísiticas de un Luchador especifico
-    private static void mostrarUnLuchador(ArrayList <Luchador> list){
+    public static void mostrarUnLuchador(ArrayList <Luchador> list){
     
         //aqui se le muetsra al usuario lso nombres de los Luchadores que tiene y se le pregunta cual desea revisar
         System.out.println("Input the number of the Fighter you wish to evaluate.");
@@ -336,11 +373,152 @@ public static class Luchador{
         
         mostrarLuchadorCompleto(list.get(NameAsk - 1));
     }
+       
+   //método para preguntarle al usuario si desea equipar un objeto a un Luchador, de no tener objetos, se le informa al Usuario
+    public static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker){
+       
+        System.out.println("");
+        
+        System.out.println("");
+        
+        if( inventory.size() > 0){
+        
+        System.out.println("Do you wish to equip items? (WARNING: This action CANNOT be undone.)(Input number)");
+        
+        System.out.println("");
+     
+        System.out.println("1) Yes.");
+        
+        System.out.println("");
+        
+        System.out.println("2) No.");
+        
+        System.out.println("");
+        
+        System.out.println("3) I'd rather destroy one.");
+        
+        System.out.println("");
+        
+        int numero;
+     
+        Scanner scan = new Scanner(System.in);
+     
+        numero = scan.nextInt();
+        
+        respuestaEquipItemsAsk(numero, list, inventory, checker);
+    }
+         else{
+                System.out.println("You have no items. How about you go out there and KILL something?");
+         }
+      }
     
+    //metodo que interpreta la respuesta del usuario e invoca al metodo necesario para cumplirla
+    private static void respuestaEquipItemsAsk(int numero, ArrayList <Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker){
     
- //metodo para equipar al Luchador con el objeto seleccionado
-    private static void equipFighterWithItem(Luchador fighter, objetoEquipable item){
+         switch(numero){
+    
+        case 1: System.out.println("");
+                
+                System.out.println("");
+                 
+                equipItemsChoose(list, inventory);
+            break;
+    
+        case 2: System.out.println("OK, let's just leave them there, gathering dust.");
+        
+                System.out.println("");
+                
+                System.out.println("");
+            break;
+    
+        case 3: System.out.println("Are you sure about that?");    
+         
+                System.out.println("");
+                
+                System.out.println("");
+         
+                System.out.println("");
+                
+                System.out.println("1) Yes");
+                
+                System.out.println("");
+                
+                System.out.println("2) No");
+                
+                int itemAsk;
+     
+                Scanner scan = new Scanner(System.in);
+                
+                itemAsk = scan.nextInt();
+                
+                switch(itemAsk){
+    
+                    case 1: System.out.println("");
+                            
+                        System.out.println("Sorry, but this function is under development.");
+
+                        System.out.println("");
+                        break;
+                        
+                    case 2: System.out.println("");
+                    
+                        System.out.println("That's what I thought.");
+                        
+                        System.out.println("");
+                        break;
+                        
+                    default:
+                        System.out.println("Command not recognized.");
+                        
+                        System.out.println("");
+                        
+                        System.out.println("");
+                        break;
+                }
+            break;
+
+        default:System.out.println("Command not recognized.");
+        
+        checker ++;
+        break;
+        }
+    }
+      
+    //metodo quele pregunta al Usuario "que?" objeto desea equipar a "cual?" Luchador y luego invoca a los metodos necesarios para equipar y borrar el objeto del inverntario
+    private static void equipItemsChoose(ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory){
+    
+        System.out.print("Which Fighter do you wish to equip with an Item?(Input number)");
+        
+        System.out.println("");
+        
+        listaL.mostrarListaLuchadorSimple(list);
+        
+        int fighterNum;
+        
+        Scanner scan1 = new Scanner(System.in);
+                
+        fighterNum = scan1.nextInt(); 
+        
+        System.out.println("Which Item do you wish to equip?");
+        
+        System.out.println("");
+        
+        inventario.verInventarioCompleto(inventory);
+        
+        int itemNum;
+        
+        Scanner scan2 = new Scanner(System.in);
+                
+        itemNum = scan2.nextInt();
+        
+        equipFighterWithItem(list.get(fighterNum - 1), inventory.get(itemNum -1));
+        
+        Objetos.deleteItemFromInventory(inventory, itemNum -1);
+    }
+    
+    //metodo para equipar al Luchador con el objeto seleccionado
+    private static void equipFighterWithItem(Luchador fighter, Objetos.objetoEquipable item){
     
         fighter.item = item;   
     }
-    
+}
