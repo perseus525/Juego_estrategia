@@ -1,0 +1,38 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package juego_estrategia_prototype;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import static juego_estrategia_prototype.Fight.Turn;
+
+/**
+ *
+ * @author marclo
+ */
+public class Juego_estrategia_prototype {
+
+public static void main(String[] args) {
+               
+        //incialización de la variable "checker" que se usa para revisar cauntas veces el usuario ha introducido un comando no válido
+        int checker = 0;
+        
+        //inicialización del inventario para objetos no equipados
+        ArrayList <Objetos.objetoEquipable> inventory = new ArrayList <Objetos.objetoEquipable>();
+
+        //inicialización del Array que contendrá a los Luchadores
+        ArrayList <Fighter.Luchador> list = new ArrayList <Fighter.Luchador>(); 
+        
+        //inicialización del Array que contendrá a los Luchadores miembros de la "Party"
+        ArrayList <Fighter.Luchador> party = new ArrayList <Fighter.Luchador>();
+        
+        //creación del primer Luchador de la lista
+        Fighter.crearLuchador(list);
+        
+        //llamada al método menú
+        Menu.menu(checker , list, inventory, party);
+        } 
+}
