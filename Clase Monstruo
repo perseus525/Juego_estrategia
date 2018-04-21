@@ -91,7 +91,7 @@ public class Monstruo {
 
         public Objetos.objetoEquipable setItemDrop3(){
             
-            Objetos.objetoEquipable item = createItemDrop1();
+            Objetos.objetoEquipable item = createItemDrop3();
             
             return itemDrop3 = item;} 
     }
