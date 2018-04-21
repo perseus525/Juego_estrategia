@@ -1,0 +1,147 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package juego_estrategia_prototype;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
+
+/**
+ *
+ * @author marclo
+ */
+public class Party {
+    
+    
+     //metodo que pregunta que tipo de party se queire, random o selccionada
+    public static void makePartyAsk(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list){
+    
+        
+        System.out.println("");
+        System.out.println("Do you want a random party?(input number))");
+        System.out.println("");
+        System.out.println("1) yes");
+        System.out.println("");
+        System.out.println("2) no");
+        
+        Scanner scan = new Scanner(System.in);
+     
+        int numero = scan.nextInt();
+        
+        int partySize;
+        
+        if (list.size() < 6){
+            
+            partySize = list.size();
+        }
+        else{
+            partySize = 6;
+        }
+        
+        makeParty(party, list, numero, partySize);
+    }
+
+    //metodo para crear una "Party"
+    private static void makeParty(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list, int numero, int partySize){
+ 
+        int i = 0;
+        
+        while (i < partySize){
+
+            switch (numero) {
+                case 1: addPartyRandom(party,list);
+                    break;
+                    
+                case 2: addPartyAsk(party,list);
+                    break;
+                    
+                default: System.out.println("THAT'S NOT ONE OF THE OPTIONS YOU MORON!!!!!!");
+                    i=7;
+                    break;
+            }
+            if ( (i > 0) & (party.size() > 0)){
+                
+                boolean nameCheck = checkNameParty( party);
+                
+                if(nameCheck == true){
+                
+                Fighter.eliminarLuchador(party, party.size()-1); 
+                
+                i--;
+                
+                if(numero == 2){ System.out.println("");
+                
+                    System.out.println("You can't cheat like that, Idiot.");
+                    
+                    System.out.println("");
+                    }
+                }
+            }
+            i++;
+        }
+    }
+   
+    //metodo para preguntar que Lucadores se usarán en la party
+    private static void addPartyAsk(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list){
+    
+    listaL.mostrarTodoLuchador(list);
+    
+    int numero;
+     System.out.println("elija un luchador. (input number)");
+     
+        Scanner scan = new Scanner(System.in);
+        
+        listaL.mostrarTodoLuchador(list);
+     
+        numero = scan.nextInt();
+        
+        if(numero <= party.size()){
+            
+            moveToParty(list,party,(numero-1));       
+        }
+        else{
+            
+            System.out.println("STOP TRYING TO CHEAT!!!!!");
+        }
+    }
+    
+    //metodo para crear una party "random"
+    private static void addPartyRandom(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list){
+        
+         int randomNum = ThreadLocalRandom.current().nextInt(1, list.size() + 1);
+        
+         moveToParty(list,party,(randomNum -1));       
+    }
+    
+    //metodo para mover los Luhadores desde el "LIstado" hacia la "Party"
+    private static void moveToParty (ArrayList <Fighter.Luchador> list, ArrayList <Fighter.Luchador> party, int fighterNum) {
+
+        Fighter.Luchador copia = list.get(fighterNum);
+        
+        party.add( copia); 
+    }
+    
+    //variante del método "checkName" que asegura que no se repitan miembros en la Party
+    private static boolean checkNameParty(ArrayList <Fighter.Luchador> party){
+         
+        boolean a = false;
+
+        int i = party.size() - 2;
+        
+        int j = party.size() - 1;
+        
+        while ( i >= 0){
+                        
+            if(party.get(i).getNameL() .equals ( party.get(j).getNameL() )){
+                
+                a = true;
+            }
+            i--;
+        }  
+        return a;
+    }
+    
+}
