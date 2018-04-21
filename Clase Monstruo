@@ -1,21 +1,27 @@
-
-//Esta es una lista de todos los datos/comandos/métodos que se utilizan de algún modo la clase "Monstruo"
-
-//Dado que esto es simplemente un "copiar pegar" del archivio "ejecutable" es poco probable que alguno de los métodos funcione
-//dados los límites de mis conocimientos de programación.
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package juego_estrategia_prototype;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-//creación de la clase "Monstruo"
-    public static class Monstruo{
+/**
+ *
+ * @author marclo
+ */
+public class Monstruo {
     
-        private String name;
+    //creación de la clase "monstruo"
+    public static class monstruo{
+    
+       private String name;
         
         private String type;
         
-        private int hp;
+        private double hp;
         
         private int atk;
         
@@ -23,9 +29,13 @@ import java.util.concurrent.ThreadLocalRandom;
         
         private int spd;
         
-        private objetoEquipable itemDrop;
+        private Objetos.objetoEquipable itemDrop1;
         
-        Monstruo(){
+        private Objetos.objetoEquipable itemDrop2;
+        
+        private Objetos.objetoEquipable itemDrop3;
+        
+        monstruo(){
             
             this.name = darNameMonstruo();
 
@@ -39,13 +49,54 @@ import java.util.concurrent.ThreadLocalRandom;
         
             this.type = darType();
             
-            this.itemDrop = createItem();
+            this.itemDrop1 = createItemDrop1();
+            
+            this.itemDrop2 = createItemDrop2();
+            
+            this.itemDrop3 = createItemDrop3();
         }
         
+        public String getNameL(){
+            return name;}    
+    
+        public String getTypeM(){
+            return type;} 
+    
+        public int getATKM(){
+            return atk;} 
+    
+        public int getDEFM(){
+            return def;} 
+    
+        public double getHPM(){
+            return hp;} 
+        
+        public double setHPM( double n){
+            return hp = n;} 
+    
+        public int getSPDM(){
+            return spd;} 
+        
+        public Objetos.objetoEquipable setItemDrop1(){
+            
+            Objetos.objetoEquipable item = createItemDrop1();
+            
+            return itemDrop1 = item;} 
+        
+        public Objetos.objetoEquipable setItemDrop2(){
+             
+            Objetos.objetoEquipable item = createItemDrop2();
+            
+            return itemDrop2 = item;} 
+
+        public Objetos.objetoEquipable setItemDrop3(){
+            
+            Objetos.objetoEquipable item = createItemDrop1();
+            
+            return itemDrop3 = item;} 
     }
-    
-    
-     //método para darle un nombre a un mosntruo
+     
+    //método para darle un nombre a un mosntruo
     private static String darNameMonstruo(){
     
         //este método selciona uno de los nombres disponibles de manera aleatoria y  se lo asigna al nuevo Luchador 
@@ -59,19 +110,7 @@ import java.util.concurrent.ThreadLocalRandom;
         return name;
         }
     
-    
-      //método para asignarle la HP a un Monstruo de manera aleatoria
-    private static int darHpMonstruo(){
-    
-        int randomNum = ThreadLocalRandom.current().nextInt(3500, 4000 + 1);
-           
-        int HP = randomNum;
-           
-    return HP;
-    }
-    
-    
-     //método para asignar una facción/Tipo/Elemento a un Luchador de manera aleatoria
+    //método para asignar una facción/Tipo/Elemento a un Luchador de manera aleatoria
     private static String darType(){
        
        String[] typeList = { "Fire", "Water", "Earth"};
@@ -83,7 +122,17 @@ import java.util.concurrent.ThreadLocalRandom;
     return type;
     }
     
-     //método para asignar el ATK de un Monstruo de manera aleatoria
+    //método para asignarle la HP a un Monstruo de manera aleatoria
+    private static int darHpMonstruo(){
+    
+        int randomNum = ThreadLocalRandom.current().nextInt(3500, 4000 + 1);
+           
+        int HP = randomNum;
+           
+    return HP;
+    }
+    
+    //método para asignar el ATK de un Monstruo de manera aleatoria
     private static int darAtkMonstruo(){
     
            int randomNum = ThreadLocalRandom.current().nextInt(1000, 1500 + 1);
@@ -92,8 +141,7 @@ import java.util.concurrent.ThreadLocalRandom;
            
     return ATK;
     }
-    
-    
+     
     //método para asignar la DEF de un Luchador o Monstruo de manera aleatoria
     private static int darDEF(){
     
@@ -114,5 +162,116 @@ import java.util.concurrent.ThreadLocalRandom;
     return SPD;
     }
     
+    //este método muestra todas las estadíticas de un Monstruo
+    public static void mostrarMonstruo(monstruo monster){
     
+        System.out.println ("Name: " + monster.name);
+            
+        System.out.println ("Type: " + monster.type);
+            
+        System.out.println ("HP: " + monster.hp);
+            
+        System.out.println ("ATK: " + monster.atk);
+            
+        System.out.println ("DEF: " + monster.def);
+            
+        System.out.println ("SPD: " + monster.spd);
+            
+        Objetos.mostrarItem(monster.itemDrop1);  
+
+        Objetos.mostrarItem(monster.itemDrop2);
+        
+        Objetos.mostrarItem(monster.itemDrop3);
+    }
     
+    //métodos que crean los objetos que "Dropea" un monstruo
+    private static Objetos.objetoEquipable createItemDrop1(){
+    
+        Objetos.objetoEquipable Item = new Objetos.objetoEquipable();
+        
+        Item.setNameO(Objetos.darItemName());
+        
+        Item.setRankO(1);
+        
+        Item.setStat(Objetos.darItemStat(Item.getNameO()));
+        
+        Item.setValueO(Objetos.darItemValue());
+     
+        return Item;      
+    }
+    
+    private static Objetos.objetoEquipable createItemDrop2(){
+    
+        Objetos.objetoEquipable Item = new Objetos.objetoEquipable();
+        
+        Item.setNameO(Objetos.darItemName());
+        
+        Item.setRankO(3);
+        
+        Item.setStat(Objetos.darItemStat(Item.getNameO()));
+        
+        Item.setValueO(Objetos.darItemValue()*3);
+     
+        return Item;      
+    }
+     
+    private static Objetos.objetoEquipable createItemDrop3(){
+    
+        Objetos.objetoEquipable Item = new Objetos.objetoEquipable();
+        
+        Item.setNameO(Objetos.darItemName());
+        
+        Item.setRankO(5);
+        
+        Item.setStat(Objetos.darItemStat(Item.getNameO()));
+        
+        Item.setValueO(Objetos.darItemValue()*5);
+     
+        return Item;      
+    }
+    
+    //metodo para asignar que objetos tiene el mosntruo
+    public static void droppedItems(Monstruo.monstruo monster, ArrayList <Objetos.objetoEquipable> inventory){
+    //creación de los nuevos objetos
+        Objetos.objetoEquipable item1 = monster.itemDrop1;
+        Objetos.objetoEquipable item2 = monster.itemDrop2;
+        Objetos.objetoEquipable item3 = monster.itemDrop3;
+         
+        ///aqui se revisa el tamaño del inventario, y se agregan los nuevos, de haber menos de 10 items
+        if (inventory.size() < 10){   
+            chanceDrop1(inventory,item1);}
+         
+        if (inventory.size() < 10){
+            chanceDrop2(inventory,item2);}
+         
+        if (inventory.size() < 10){
+            chanceDrop3(inventory,item3);}
+        
+    
+    }
+    
+    //metodos para determinar si el mosntruo da o no los items al morir
+    private static void chanceDrop1(ArrayList <Objetos.objetoEquipable> inventory, Objetos.objetoEquipable item){
+        
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+          
+        if(randomNum <= 60){
+        inventory.add(item);}  
+    }
+    
+    private static void chanceDrop2(ArrayList <Objetos.objetoEquipable> inventory, Objetos.objetoEquipable item){
+        
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+          
+         if(randomNum <= 30){
+        inventory.add(item);}  
+    }
+     
+    private static void chanceDrop3(ArrayList <Objetos.objetoEquipable> inventory, Objetos.objetoEquipable item){
+        
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+          
+         if(randomNum <= 10){
+        inventory.add(item);}  
+    }
+}
