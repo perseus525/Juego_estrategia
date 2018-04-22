@@ -88,7 +88,7 @@ public class Fighter {
     //método para crear un luchador de manera aleatoria 
     public static void crearLuchador(ArrayList <Luchador> list){
         
-        //este método crea un nuevo Luchador y muetsra sus estadísticas por pantalla
+        //este método crea un nuevo Luchador y muestra sus estadísticas por pantalla
         
         //aqui se revisa cuantos Luchadores se tiene, de tenerse menos de 25 se crea uno nuevo
         if (list.size() < 25){
@@ -117,13 +117,6 @@ public class Fighter {
     //método para preguntar si se desea eliminar un luchador
     public static void eliminarLuchadorAsk(ArrayList <Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker){
 
-        //aqui se revisa si hay o no Luchadores creados, de no haberlos, se le informa al usuario y regresa al menu 
-        if (list.isEmpty()){
-        
-            System.out.println("You have no fighters. Get your lazy ass in gear and recruit some.");
-        }
-        else{
-        
             System.out.println("Which coward are you exiling?(Input number)");
             
             listaL.mostrarListaLuchadorSimple(list);
@@ -134,8 +127,7 @@ public class Fighter {
      
             numero = scan.nextInt();
             
-             eliminarLuchador(list, (numero - 1));         
-        }  
+             eliminarLuchador(list, (numero - 1));          
 }
         
     //metodo para eliminar al luchador
@@ -186,7 +178,7 @@ public class Fighter {
     //método para asignar una Facción/Tipo/Elemento a un Luchador de manera aleatoria
     private static String darType(){
        
-       String[] typeList = { "Fire", "Water", "Earth"};
+       String[] typeList = { "Fire", "Water", "Plant"};
        
        int randomNum = ThreadLocalRandom.current().nextInt(0, typeList.length);
         
@@ -271,13 +263,13 @@ public class Fighter {
             
             System.out.println ("RANK: " + Fighter.rank);
             
-            System.out.println ("HP: " + Fighter.hp);
+            System.out.println ("HP  : " + Fighter.hp);
             
-            System.out.println ("ATK: " + Fighter.atk);
+            System.out.println ("ATK : " + Fighter.atk);
             
-            System.out.println ("DEF: " + Fighter.def);
+            System.out.println ("DEF : " + Fighter.def);
             
-            System.out.println ("SPD: " + Fighter.spd);
+            System.out.println ("SPD : " + Fighter.spd);
             
             Objetos.mostrarItem(Fighter.item);   
         }
@@ -323,18 +315,16 @@ public class Fighter {
                 
         System.out.println ("RANK: " + Fighter.rank);
         
-        System.out.println ("HP: " + hp);
+        System.out.println ("HP  : " + hp);
                 
-        System.out.println ("ATK: " + atk);
+        System.out.println ("ATK : " + atk);
                 
-        System.out.println ("DEF: " + def);
+        System.out.println ("DEF : " + def);
                 
-        System.out.println ("SPD: " + spd);
+        System.out.println ("SPD : " + spd);
                 
         Objetos.mostrarItem(Fighter.item);
         
-        System.out.println("");
-      
         System.out.println("");
     }  
     
@@ -346,7 +336,6 @@ public class Fighter {
             System.out.println ("Type: " + Fighter.type);
             
             System.out.println ("RANK: " + Fighter.rank);
-
    }
   
     //metodo para ver las estadísiticas de un Luchador especifico
@@ -378,22 +367,14 @@ public class Fighter {
     public static void equipItemsAsk(ArrayList <Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker){
        
         System.out.println("");
-        
-        System.out.println("");
-        
+
         if( inventory.size() > 0){
         
         System.out.println("Do you wish to equip items? (WARNING: This action CANNOT be undone.)(Input number)");
-        
-        System.out.println("");
-     
+
         System.out.println("1) Yes.");
-        
-        System.out.println("");
-        
+  
         System.out.println("2) No.");
-        
-        System.out.println("");
         
         System.out.println("3) I'd rather destroy one.");
         
@@ -418,31 +399,21 @@ public class Fighter {
          switch(numero){
     
         case 1: System.out.println("");
-                
-                System.out.println("");
                  
                 equipItemsChoose(list, inventory);
             break;
     
         case 2: System.out.println("OK, let's just leave them there, gathering dust.");
-        
-                System.out.println("");
-                
+
                 System.out.println("");
             break;
     
         case 3: System.out.println("Are you sure about that?");    
-         
-                System.out.println("");
-                
-                System.out.println("");
-         
+
                 System.out.println("");
                 
                 System.out.println("1) Yes");
-                
-                System.out.println("");
-                
+
                 System.out.println("2) No");
                 
                 int itemAsk;
@@ -455,7 +426,7 @@ public class Fighter {
     
                     case 1: System.out.println("");
                             
-                        System.out.println("Sorry, but this function is under development.");
+                        inventario.deleteItemAsk(inventory);
 
                         System.out.println("");
                         break;
@@ -469,8 +440,6 @@ public class Fighter {
                         
                     default:
                         System.out.println("Command not recognized.");
-                        
-                        System.out.println("");
                         
                         System.out.println("");
                         break;
@@ -513,7 +482,7 @@ public class Fighter {
         
         equipFighterWithItem(list.get(fighterNum - 1), inventory.get(itemNum -1));
         
-        Objetos.deleteItemFromInventory(inventory, itemNum -1);
+        inventario.deleteItemAsk(inventory);
     }
     
     //metodo para equipar al Luchador con el objeto seleccionado
