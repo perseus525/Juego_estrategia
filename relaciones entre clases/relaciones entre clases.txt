@@ -5,5 +5,5 @@ A su vez, la clase "inventarioLuchadores" depende de la clase "Luchador" y la cl
 "invetarioObjetos" depende de la clase "objetoEquipable".
 también existe la clase "monstruo" que actualmente sólo depende de la clase "objetoEquipable".
 la clase "Luchador" también depende de la clase "objetoEquipable".
-Se ha agregado al clase "Party", la cual depende de la clase Luchador.
+Se ha agregado al clase "Party", la cual depende de la clase "invetarioLuchadores".
 También se agrego la clase "Fight", la cual depende de la clase "Party".
