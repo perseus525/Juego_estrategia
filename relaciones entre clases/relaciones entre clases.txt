@@ -1,7 +1,9 @@
-De momento, existen 6 clases.
-La m·s "alta" es la clase "menu", la cu·l interact˙a directamente con el usuario y
-depende de las clases "inventarioLuchadores" e "invetarioObjetos".
+De momento, existen 8 clases.
+La m√°s "alta" es la clase "menu", la cu√°l interact√∫a directamente con el usuario y
+depende de las clases "inventarioLuchadores" , "invetarioObjetos" y utiliza la clase "Fight".
 A su vez, la clase "inventarioLuchadores" depende de la clase "Luchador" y la clase
 "invetarioObjetos" depende de la clase "objetoEquipable".
-tambiÈn existe la clase "monstruo" que actualmente sÛlo depende de la clase "objetoEquipable".
-Finalemnte, la clase "Luchador" tambiÈn depende de la clase "objetoEquipable".
+tambi√©n existe la clase "monstruo" que actualmente s√≥lo depende de la clase "objetoEquipable".
+la clase "Luchador" tambi√©n depende de la clase "objetoEquipable".
+Se ha agregado al clase "Party", la cual depende de la clase Luchador.
+Tambi√©n se agrego la clase "Fight", la cual depende de la clase "Party".
