@@ -29,25 +29,15 @@ public class listaL {
         
         else{
            System.out.println("Which ones do you want to see? (Input number)");
-           
-           System.out.println("");
           
            System.out.println("1) All of them (simplified).");
-           
-           System.out.println("");
-           
+
            System.out.println("2) All of them (with all their stats).");
-           
-           System.out.println("");
-           
+
            System.out.println("3) The stats of a specific Fighter.");
-           
-           System.out.println("");
-          
+
            System.out.println("4) Specific Rank.");
-           
-           System.out.println("");
-           
+
            System.out.println("5) Specific Type.");
            
            System.out.println("");
@@ -108,12 +98,8 @@ public class listaL {
                case 5: System.out.println("Item Effects have already been added.");
                
                    System.out.println("");
-               
-                   System.out.println("");
                    
                    mostrarTypeLuchadorAsk (list);
-                   
-                   System.out.println("");
                    
                    System.out.println("");
                    
@@ -123,9 +109,7 @@ public class listaL {
                default: System.out.println ("NOT POSSIBLE.");
                
                    System.out.println("");
-               
-                   System.out.println("");
-                   
+
                    checker ++;
                    
                    mostrarListaAsk(list, inventory, checker);
@@ -144,13 +128,9 @@ public class listaL {
                     
                    System.out.println("");
                     
-                   System.out.println("");
-                    
                    System.out.print(i+1 + ")");
                                
                    Fighter.mostrarLuchadorSimple(list.get(i));
-                   
-                   System.out.println("");
                     
                    System.out.println("");
                 }
@@ -168,13 +148,9 @@ public class listaL {
                     
                    System.out.println("");
                     
-                   System.out.println("");
-                    
                    System.out.print(i+1 + ")");
                    
                    Fighter.mostrarLuchadorCompleto(list.get(i));
-                   
-                   System.out.println("");
                    
                    System.out.println("");
                 } 
@@ -186,23 +162,15 @@ public class listaL {
         
         System.out.println("Which Ranked warriors do you wish to see?");
         
-        System.out.println("");
-        
+         System.out.println("");
+
         System.out.println("1) RANK 1");
-        
-        System.out.println("");
-        
+
         System.out.println("2) RANK 2");
-        
-        System.out.println("");
         
         System.out.println("3) RANK 3");
         
-        System.out.println("");
-        
         System.out.println("4) RANK 4");
-        
-        System.out.println("");
         
         System.out.println("5) RANK 5");
         
@@ -225,22 +193,15 @@ public class listaL {
                 for(int i = 0; i< list.size(); i++){
                    
                    if(list.get(i).getRankL() == RankAsk ){
-                       
-                       System.out.println("");
-                       
+
                        System.out.println("");
                        
                        Fighter.mostrarLuchadorCompleto(list.get(i));
                        
                        System.out.println("");
-                       
-                       System.out.println("");
                     }  
                 }
-                
-          System.out.println("End of Fighter list ");
-        
-    
+          System.out.println("End of Fighter list ");  
     }
     
     //metodo que le pregunta al usuario que Tipo/elemento de Luchadores desea ver e invoca al metodo necesario para mostrarlos
@@ -248,13 +209,11 @@ public class listaL {
         
         System.out.println("Which warrior Type do you wish to see?(Input number)");
         
+         System.out.println("");
+        
         System.out.println("1) Fire.");
-        
-        System.out.println("");
-        
+
         System.out.println("2) Water.");
-        
-        System.out.println("");
         
         System.out.println("3) Earth.");
         
@@ -295,18 +254,12 @@ public class listaL {
                 for(int i = 0; i< list.size(); i++){
                    
                    if(list.get(i).getTypeL() .equals( CheckType )){
-                       
-                       System.out.println("");
-                       
+
                        System.out.println("");
                        
                        System.out.print("j)");
                        
                        Fighter.mostrarLuchadorCompleto(list.get(i));
-                       
-                       System.out.println("");
-                       
-                       System.out.println("");
                        
                        j++;
                       }  
