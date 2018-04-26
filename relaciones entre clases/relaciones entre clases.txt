@@ -1,8 +1,16 @@
 De momento, existen 8 clases.
-La más "alta" es la clase "menu", la cuál interactúa directamente con el usuario y
-depende de las clases "inventarioLuchadores" , "invetarioObjetos" y utiliza la clase "Fight".
-A su vez, la clase "inventarioLuchadores" depende de la clase "Luchador" y la clase
-"invetarioObjetos" depende de la clase "objetoEquipable".
+
+La más "alta" es la clase "Menu", la cuál interactúa directamente con el usuario. Esta clase posee una relación de agregación con las clases "InventarioLuchadoes" e "InventarioObjetos", al igual que una relación de uso con la clase "Fight".
+
+La clase "InventarioObjetos" es una colección de objetos del tipo "ObjetoEquipable". Sin embargo, la clase "ObjetoEquipable" no requiere de la clase "InventraioOjetos". Por ende, la relación entre estas dos clases es de agregación.
+
+La clase "ObjetoEquipable" es , como indica su nombre, un objeto (arma, botas, armadura, etc.) que altera los atributos de su "dueño". A pesar de solo tener uso como el atributo de otra clase, la clase "ObjetoEquipalbe" es la única clase que no depende de otras, de ninguna forma.
+
+La clase "InventrioLuchadores" 
+
+La clse "Luchador" es, como indica su nombre, un "Luchador" que desea cazar "Monstruos". Esta clase tiene varios atributos, uno de ellos sieno un objeto de la clase "ObjetoEquipable" La clase "Luchador" requiere de la clase "ObjetoEquipable", pero no al revés. Por ende la clase "Luchador" tiene una relación de agregación con la clase "ObjetoEquipable".
+
+
 también existe la clase "monstruo" que actualmente sólo depende de la clase "objetoEquipable".
 la clase "Luchador" también depende de la clase "objetoEquipable".
 Se ha agregado al clase "Party", la cual depende de la clase "invetarioLuchadores".
