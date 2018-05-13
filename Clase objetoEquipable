@@ -5,16 +5,13 @@
  */
 package juego_estrategia_prototype;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.ArrayList;
+
 
 /**
  *
  * @author marclo
  */
-public class Objetos {
-    
-    //creación de la clase "objetoEquipable"
-    public static class objetoEquipable{
+public class ObjetoEquipable {
 
    //inicialización de los atributos de la clase pbjetoEquipable
     private String nameItem;
@@ -26,7 +23,7 @@ public class Objetos {
     private String stat;
     
     //constructor de la clase "objetoEquiable"
-    objetoEquipable(){
+    ObjetoEquipable(){
         
             nameItem = "Empty";
             
@@ -65,15 +62,15 @@ public class Objetos {
     public String setStat(String statName){
             
             return stat = statName;}
-    }
+    
     
     //método para crear un objetoEquipable "vacio". La idea de este método es ser usado para completar la creación de un Luchador.
-    public static objetoEquipable createItemZero(){
+    public static ObjetoEquipable createItemZero(){
     
         //aqui se crea el objeto equipable "Empty", el cual no posee estadísticas.
         
         //este metodo es usado sólo durante la creación de un nuevo Luchador
-        objetoEquipable item0 = new objetoEquipable();
+        ObjetoEquipable item0 = new ObjetoEquipable();
     
         item0.nameItem = "Empty";
         
@@ -87,7 +84,7 @@ public class Objetos {
     }
     
      //método para mostrar un objetoEquipable
-    public static void mostrarItem(objetoEquipable item){
+    public static void mostrarItem(ObjetoEquipable item){
           
         //este método  muestra el nombre y estadísticas del objeto seleccionado
         String Empty = "Empty";
@@ -108,15 +105,13 @@ public class Objetos {
            System.out.println("Stat improvement: +" + item.value * item.rankItem);
            
            System.out.println("");
-           
-           System.out.println("");
         }  
       }
     
     //método para crear objetos originalmente usada cuando moría un monstruo, actualmente no tiene uso
-    public static objetoEquipable createItem(){
+    public static ObjetoEquipable createItem(){
         
-        objetoEquipable Item = new objetoEquipable();
+        ObjetoEquipable Item = new ObjetoEquipable();
         
         Item.nameItem = darItemName();
         
@@ -211,10 +206,4 @@ public class Objetos {
     
     return itemValue;
     }
-    
-     //metodo para borrar el obejto equipado de la lista del inventario
-    public static void deleteItemFromInventory(ArrayList <objetoEquipable> inventory, int itemNum){
-    
-        inventory.remove(itemNum);
-    }    
 }
