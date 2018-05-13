@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class Menu {
     
     //método para mostrar el menú por pantalla
-public static void menu(int checker, ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, ArrayList <Fighter.Luchador> party){
+public static void menu(ArrayList <String> checker, ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <Luchador> party){
          
     System.out.println();
      
@@ -24,11 +24,11 @@ public static void menu(int checker, ArrayList <Fighter.Luchador> list, ArrayLis
     //si "list" no posee Luchadores, el juego termina
     if (list.size() > 0){
     
-        if(checker < 4){
+        if(checker.size() < 4){
         
             System.out.println("Welcome to Monster Slayer. You have " + list.size() + " Fighter(s).");
      
-            System.out.println("You have made " + checker + " mistakes. Be careful");
+            System.out.println("You have made " + checker.size() + " mistakes. Be careful");
      
             System.out.println("What is your command?(input number)");
      
@@ -73,12 +73,12 @@ public static void menu(int checker, ArrayList <Fighter.Luchador> list, ArrayLis
         
         System.out.println("");
         
-        System.out.println("Get. The fuck. OUT.");
+        System.out.println("Get. The FUCK. OUT!!!!");
     }
 }
      
 //método que permite la interacción con el usuario al leer su input y llamar al método correspondiente
-private static void respuestaMenu(int checker, ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, ArrayList <Fighter.Luchador> party){
+private static void respuestaMenu(ArrayList <String> checker, ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <Luchador> party){
     
         //variable usada para leer el comando del usuario
             int numero;
@@ -91,29 +91,29 @@ private static void respuestaMenu(int checker, ArrayList <Fighter.Luchador> list
             //tódos los comandos terminan invocando nuevamente al método "menu",excepto el comando 6 (Wuss out) 
             switch (numero) {
             
-                case 1: listaL.mostrarListaAsk(list, inventory, checker);
+                case 1: ListaLuchadores.mostrarListaAsk(list, inventory, checker);
             
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 2: inventario.verInventarioAsk(inventory);
+                case 2: Inventario.verInventarioAsk(inventory,checker);
             
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 3: Fighter.crearLuchador (list);
-
-                    menu(checker, list, inventory, party);
-                break;
-                
-                case 4: Fighter.eliminarLuchadorAsk(list, inventory, checker);
+                case 3: ListaLuchadores.crearLuchador (list);
                 
                     menu(checker, list, inventory, party);
                 break;
                 
-                case 5: Monstruo.monstruo monster = new Monstruo.monstruo();
+                case 4: ListaLuchadores.eliminarLuchadorAsk(list, inventory, checker);
+                
+                    menu(checker, list, inventory, party);
+                break;
+                
+                case 5: Monstruo monster = new Monstruo();
                     
-                    Fight.hunt(inventory, monster, list, party);
+                    Fight.hunt(inventory, monster, list, party,checker);
             
                     menu(checker, list, inventory, party);
                 break;
@@ -125,23 +125,37 @@ private static void respuestaMenu(int checker, ArrayList <Fighter.Luchador> list
                //aquí se registra cada vez que el usuario intenta usar un comando que no existe en el juego
                 //usar demasiados conmandos invalidos cierra el jeugo y despliega un mensaje iformando al usuario
                 //la variable "checker" es la que es usada para llevar la cuenta de cuantos coamndos errados se han usado
-                default: 
-                    switch (checker) {
+                default:   
+                    
+                    checkError(checker);
+                
+                    menu(checker, list, inventory, party);
+                    break;
+            }
+        }
+
+//metodo que revisa cuantos errores se ha cometido, despleiga un mensaje acorde y luego incrementa el tamaña de la lista "checker"
+public static void checkError(ArrayList <String> checker){
+    
+    //este metodo esta pensado para ser invocado por todos los metodos que lean alguna variable ingresada por el usuario
+    //"checkError" revisa cuantos errores se han cometido y despliega un mensaje acorde
+        
+                    switch (checker.size()) {
                         
                         case 0:
                             
-                            System.out.println(); 
+                        System.out.println(); 
                         
-                            System.out.println();
+                        System.out.println();
                             
-                            System.out.println("How about you stick to the AVAILABLE comamands?");
+                        System.out.println("How about you stick to the AVAILABLE comamands?");
                         
-                            System.out.println();
+                        System.out.println();
                         
-                            System.out.println();
+                        System.out.println();
                         break;
                         
-                    case 1:
+                        case 1:
                         
                         System.out.println();
                         
@@ -152,9 +166,9 @@ private static void respuestaMenu(int checker, ArrayList <Fighter.Luchador> list
                         System.out.println();
                         
                         System.out.println();
-                    break;
+                        break;
                       
-                    case 2:
+                        case 2:
                         
                         System.out.println();
                         
@@ -165,18 +179,12 @@ private static void respuestaMenu(int checker, ArrayList <Fighter.Luchador> list
                         System.out.println();
                         
                         System.out.println();
-                    break;
+                        break;
                         
-                    default:
-                    break;
+                        default:
+                        break;
             }
-                    
-                    checker ++;
-                
-                    menu(checker, list, inventory, party);
-                    break;
-            }
-        }
-
-    
+             //aqui se "aumenta" la cantidad de errores cometidos, esto es porque se asume que el metodo fue invocado cuando se cometio un error 
+            checker.add("Error");
+    }
 }
