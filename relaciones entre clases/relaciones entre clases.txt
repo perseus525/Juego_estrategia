@@ -1,4 +1,4 @@
-De momento, existen 8 clases.
+De momento, existen 9 clases.
 
 La más "alta" es la clase "Menu", la cuál interactúa directamente con el usuario. Esta clase posee una relación de agregación con las
 clases "InventarioLuchadoes" e "InventarioObjetos", al igual que una relación de uso con la clase "Fight".
@@ -13,15 +13,18 @@ forma.
 La clase "InventrioLuchadores" es una colección de objetos del tipo "Luchador"(de 1 a 25). Sin embargo, la clase "Luchador" no requiere
 de la clase "InventraioLuchadores". Por ende, la relación entre estas dos clases es de agregación.
 
-La clase "Luchador" es, como indica su nombre, un "Luchador" que desea cazar "Monstruos". Esta clase tiene varios atributos, uno de ellos
-sieno un objeto de la clase "ObjetoEquipable" La clase "Luchador" requiere de la clase "ObjetoEquipable", pero no al revés. Por ende la 
-clase "Luchador" tiene una relación de agregación con la clase "ObjetoEquipable".
+La clase "Luchador" es, como indica su nombre, un "Luchador" que desea cazar "Monstruos". Esta clase es hija de la clase "Combatiente", como tal, posee todos sus atributos, además de un atributo único llamado "rank".
 
-La clase "Monstruo" es muy similar a la clase "Luchador". La diferencia principal es que la clase "Monstruo" posee 3 "ObjetosEquipables",
-sin embargo, sus atributos no se ven afectados por dichos "Objetos".
+La clase "Monstruo", al igual que la clase "Luchador", es hija de la clase "Combaiente". Como tal, posee todos los atributos de la clase
+"Combatiente", además de poseer 2 "ObjetosEquipables" extras. Otro detalle a destacar es que, a pesar de que la clase "Monstruo" posee 3
+"ObjetosEquipables", sus estadísticas no se ven afectadas por dichos "ObjetosEquipables".
+
+La clase "Combatiente" es, como indica su nombre, un combatiente genérico, el cual (de momento) puede ser un "Luchador" o un "Monstruo". Todos los "Combatiente" tienen un "nombre", "atk", "def", "spd",  "hp" y un "ObjetoEquipable". 
+Dado que la clase "Combatiente" posee como atributo un objeto de la clase "ObejtoEquipable", esta pose una relación de Agreagación con la
+clase "ObejtoEquipable. Lo que significa que sus clases hijas también poseen una relación de agregación con la clase "ObjetoEquipable".
 
 La clase "Party" es una  es una colección de objetos del tipo "Luchador"(de 1 a 6). Sin embargo los miembros de la clase "Party" deben
-proceder de la clase "InventarioLuchadores". Dado que la clase "InventarioLuchadores" no requiere de la clse "Party", esta relación se
+proceder de la clase "InventarioLuchadores". Dado que la clase "InventarioLuchadores" no requiere de la clase "Party", esta relación se
 clasifica como una agregación.
 
-Finalmente, se tiene la clase "Fight", la cuál tiene una relación de asociación con las clases "Monstruo", "Party" e "InventarioObjetos".
+Finalmente, se tiene la clase "Fight", la cuál tiene una relación de agregación con las clases "Monstruo", "Party" e "InventarioObjetos".
