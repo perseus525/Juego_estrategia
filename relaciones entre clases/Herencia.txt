@@ -1,0 +1,4 @@
+Elegí crear la clase "Combatiente" y hacer que fuera la clase padre de las clases "Monstruo" y "Luchador".
+EL motivo para esta decición es que las clases "Monstruo" y "Luchador" comparten casi todoso sus atributos, pero la clase "Monstruo" no tiene un "rank" como la calse Luchador.
+Así mismo, la clase "Monstruo" porsee 3 "ObejtosEquipables"; mientras que la clase "Luchador" sólo posee 1.
+Dado que en una herencia lo ideal es agregar nuevos elementos a la clase hija y no remover elementos de la clase padre, las clases "Monstruo" y "Luchador" no eran buenos candidatos para ser padres. Por lo que se creó una clase más geneérica que sirviese de padre para ambas.
