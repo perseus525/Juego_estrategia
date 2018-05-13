@@ -13,10 +13,10 @@ import java.util.Scanner;
  *
  * @author marclo
  */
-public class inventario {
+public class Inventario {
     
     //método que le pregunta al usario si desea o no filtrar sus "Items" por "Rank"
-    public static void verInventarioAsk( ArrayList < Objetos.objetoEquipable > inventory){
+    public static void verInventarioAsk( ArrayList < ObjetoEquipable > inventory, ArrayList <String> checker){
     
          if(inventory.size() > 0){
              
@@ -30,7 +30,7 @@ public class inventario {
             
             System.out.println("");
         
-            respuestaVerInventario( inventory);
+            respuestaVerInventario( inventory, checker);
          }
          else {
             
@@ -43,7 +43,7 @@ public class inventario {
     }
     
     //método que lee la repsuesta del usuario e invoca al método necesario para mostrar el invetario con o sin filtros
-    private static void respuestaVerInventario( ArrayList < Objetos.objetoEquipable > inventory){ 
+    private static void respuestaVerInventario( ArrayList < ObjetoEquipable > inventory, ArrayList <String> checker){ 
         
         int numero;
                     
@@ -60,12 +60,14 @@ public class inventario {
                 break;
                 
                 default: System.out.println("THAT'S NOT HOW THIS WORKS!!!!!");
+                
+                Menu.checkError(checker);
                 break;
         } 
     }
     
     //método que le pregunta al usuaior que "Rank" de "Items" desea ver
-    private static void askRankInventario(ArrayList < Objetos.objetoEquipable > inventory){
+    private static void askRankInventario(ArrayList < ObjetoEquipable > inventory){
 
         System.out.println("");
         
@@ -81,7 +83,7 @@ public class inventario {
     }
     
     //método para mostarr todos los objetos de un "Rank" específico en el inventario
-    private static void mostrarRankInventario( ArrayList <Objetos.objetoEquipable> inventory, int rank){
+    private static void mostrarRankInventario( ArrayList <ObjetoEquipable> inventory, int rank){
 
         System.out.println("");
         
@@ -100,7 +102,7 @@ public class inventario {
                    
             j++;
                 
-            Objetos.mostrarItem(inventory.get(i));
+            ObjetoEquipable.mostrarItem(inventory.get(i));
             }
         }
             
@@ -123,7 +125,7 @@ public class inventario {
     }
     
     //método para mostrar todo el inventario
-    public static void verInventarioCompleto(ArrayList <Objetos.objetoEquipable> inventory){
+    public static void verInventarioCompleto(ArrayList <ObjetoEquipable> inventory){
         
         //este método muestra todos los objetos que el usuario posee en su inventario      
 
@@ -137,7 +139,7 @@ public class inventario {
             
             System.out.print(i+1 + ")");
                    
-            Objetos.mostrarItem(inventory.get(i));
+            ObjetoEquipable.mostrarItem(inventory.get(i));
         }
             
         System.out.println("");
@@ -148,7 +150,7 @@ public class inventario {
      }  
     
      //metodo que pregunta si sobre eliminar objetos
-    public static void deleteItemAsk(ArrayList <Objetos.objetoEquipable> inventory){
+    public static void deleteItemAsk(ArrayList <ObjetoEquipable> inventory){
         
         System.out.println("Which Item do you wish to destroy? (input number)");
         
@@ -170,9 +172,8 @@ public class inventario {
     }
     
     //metodo para borrar el obejto equipado de la lista del inventario
-    private static void deleteItemFromInventory(ArrayList <Objetos.objetoEquipable> inventory, int itemNum){
+    private static void deleteItemFromInventory(ArrayList <ObjetoEquipable> inventory, int itemNum){
     
         inventory.remove(itemNum);
     }    
 }
-
