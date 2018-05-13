@@ -9,14 +9,15 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 
+
 /**
  *
  * @author marclo
  */
-public class listaL {
+public class ListaLuchadores {
     
      //método para preguntar con qué filtros se desea ver la lista de Luchadores
-    public static void mostrarListaAsk(ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker){
+    public static void mostrarListaAsk(ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <String> checker){
         
         //este método pregunta al usuario que filtros desea aplicar a la lista de Luchadores y luego invoca a un metodo que interpreta la respuesta del usuario
         
@@ -55,7 +56,7 @@ public class listaL {
     } 
     
     //metodo que invoca a los metodos necesarios para mostrar la lista con los filtros deseados
-    private static void respuestaMostrarLista(ArrayList <Fighter.Luchador> list, ArrayList <Objetos.objetoEquipable> inventory, int checker, int respuesta){
+    private static void respuestaMostrarLista(ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <String> checker, int respuesta){
     
          switch (respuesta){
                
@@ -65,7 +66,7 @@ public class listaL {
                    
                    mostrarListaLuchadorSimple (list);
                    
-                   Fighter.equipItemsAsk(list, inventory, checker);
+                   Luchador.equipItemsAsk(list, inventory, checker);
                break;
                
                case 2: System.out.println("Item Effects have already been added.");
@@ -74,16 +75,16 @@ public class listaL {
                    
                    mostrarTodoLuchador (list);
                    
-                   Fighter.equipItemsAsk(list, inventory, checker);
+                   Luchador.equipItemsAsk(list, inventory, checker);
                break;
                
                case 3: System.out.println("Item Effects have already been added.");
                
                    System.out.println("");
                    
-                   Fighter.mostrarUnLuchador(list);
+                   mostrarUnLuchador(list,checker);
                    
-                   Fighter.equipItemsAsk(list, inventory, checker);
+                   Luchador.equipItemsAsk(list, inventory, checker);
                break;
                
                case 4: System.out.println("Item Effects have already been added.");
@@ -92,7 +93,7 @@ public class listaL {
                    
                    mostrarRankLuchadorAsk (list);
                    
-                   Fighter.equipItemsAsk(list, inventory, checker);
+                   Luchador.equipItemsAsk(list, inventory, checker);
                break;
                
                case 5: System.out.println("Item Effects have already been added.");
@@ -103,24 +104,18 @@ public class listaL {
                    
                    System.out.println("");
                    
-                   Fighter.equipItemsAsk(list, inventory, checker);
+                   Luchador.equipItemsAsk(list, inventory, checker);
                break;
                
                default: System.out.println ("NOT POSSIBLE.");
-               
-                   System.out.println("");
 
-                   checker ++;
-                   
-                   mostrarListaAsk(list, inventory, checker);
-               
-                   System.out.println("");  
+                   Menu.checkError(checker);
                break;
             }     
     }
     
-      //metodo para mostrar la lista completa de Luchadores con sus estadistica "simples"
-    public static void mostrarListaLuchadorSimple(ArrayList <Fighter.Luchador> list){
+    //metodo para mostrar la lista completa de Luchadores con sus estadistica "simples"
+    public static void mostrarListaLuchadorSimple(ArrayList <Luchador> list){
         
         System.out.println("Start of Fighter list");
         
@@ -130,7 +125,7 @@ public class listaL {
                     
                    System.out.print(i+1 + ")");
                                
-                   Fighter.mostrarLuchadorSimple(list.get(i));
+                   Luchador.mostrarLuchadorSimple(list.get(i));
                     
                    System.out.println("");
                 }
@@ -140,7 +135,7 @@ public class listaL {
     }
     
     //metodo para mostrar a todos los Luchadores con todos sus estadisticas
-    public static void mostrarTodoLuchador(ArrayList <Fighter.Luchador> list){
+    public static void mostrarTodoLuchador(ArrayList <Luchador> list){
     
     System.out.println("Start of Fighter list");
     
@@ -150,15 +145,40 @@ public class listaL {
                     
                    System.out.print(i+1 + ")");
                    
-                   Fighter.mostrarLuchadorCompleto(list.get(i));
+                   Luchador.mostrarLuchadorCompleto(list.get(i));
                    
                    System.out.println("");
                 } 
           System.out.println("End of Fighter list ");
     }
     
+    //metodo para ver las estadísiticas de un Luchador especifico
+    public static void mostrarUnLuchador(ArrayList <Luchador> list, ArrayList <String> checker){
+    
+        //aqui se le muetsra al usuario lso nombres de los Luchadores que tiene y se le pregunta cual desea revisar
+        System.out.println("Input the number of the Fighter you wish to evaluate.");
+          
+        for (int i = 0; i < list.size(); i++){
+           
+            System.out.println("");
+            
+            System.out.println(i + 1 + ") " + list. get (i).getName());
+           
+        }
+           
+        System.out.println("");
+           
+        int NameAsk;
+     
+        Scanner scan = new Scanner(System.in);
+     
+        NameAsk = scan.nextInt();
+        
+        Luchador.mostrarLuchadorCompleto(list.get(NameAsk - 1));
+    }
+    
     //metodo que le pregunta al usuario que "RANK" de Luchadores desea ver e invoca al metodo necesario para mostrar dlos Luchadores pedidos
-    public static void mostrarRankLuchadorAsk(ArrayList <Fighter.Luchador> list){
+    public static void mostrarRankLuchadorAsk(ArrayList <Luchador> list){
         
         System.out.println("Which Ranked warriors do you wish to see?");
         
@@ -186,17 +206,17 @@ public class listaL {
     }
     
     //metodo que mostrar los Luchadors de un "RANK" especifico
-    public static void mostrarRankLuchador(ArrayList <Fighter.Luchador> list, int RankAsk){
+    public static void mostrarRankLuchador(ArrayList <Luchador> list, int RankAsk){
         
         System.out.println("Start of Fighter list");
         
                 for(int i = 0; i< list.size(); i++){
                    
-                   if(list.get(i).getRankL() == RankAsk ){
+                   if(list.get(i).getRank() == RankAsk ){
 
                        System.out.println("");
                        
-                       Fighter.mostrarLuchadorCompleto(list.get(i));
+                       Luchador.mostrarLuchadorCompleto(list.get(i));
                        
                        System.out.println("");
                     }  
@@ -205,7 +225,7 @@ public class listaL {
     }
     
     //metodo que le pregunta al usuario que Tipo/elemento de Luchadores desea ver e invoca al metodo necesario para mostrarlos
-    public static void mostrarTypeLuchadorAsk(ArrayList <Fighter.Luchador> list){
+    public static void mostrarTypeLuchadorAsk(ArrayList <Luchador> list){
         
         System.out.println("Which warrior Type do you wish to see?(Input number)");
         
@@ -229,7 +249,7 @@ public class listaL {
     }
     
     //metodo que muestra a todos los luchadores de un Tipo/elemento especifico
-    public static void mostrarTypeLuchador(ArrayList <Fighter.Luchador> list , int TypeAsk){
+    public static void mostrarTypeLuchador(ArrayList <Luchador> list , int TypeAsk){
 
         String CheckType = "";
         
@@ -253,17 +273,103 @@ public class listaL {
         
                 for(int i = 0; i< list.size(); i++){
                    
-                   if(list.get(i).getTypeL() .equals( CheckType )){
+                   if(list.get(i).getType() .equals( CheckType )){
 
                        System.out.println("");
                        
                        System.out.print("j)");
                        
-                       Fighter.mostrarLuchadorCompleto(list.get(i));
+                       Luchador.mostrarLuchadorCompleto(list.get(i));
                        
                        j++;
                       }  
                 }    
           System.out.println("End of Fighter list ");
-    }    
+    }  
+    
+    //método para preguntar si se desea eliminar un luchador
+    public static void eliminarLuchadorAsk(ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <String> checker){
+
+            System.out.println("Which coward are you exiling?(Input number)");
+            
+            ListaLuchadores.mostrarListaLuchadorSimple(list);
+        
+            int numero;
+     
+            Scanner scan = new Scanner(System.in);
+     
+            numero = scan.nextInt();
+            
+            eliminarLuchador(list, (numero - 1), checker);          
+}
+        
+    //metodo para eliminar al luchador
+    public static void eliminarLuchador(ArrayList <Luchador> list, int fighterID, ArrayList <String> checker){
+ 
+        if (fighterID + 1 <= list.size()){
+            
+            list.remove(fighterID);
+        }
+        else{ System.out.println("");
+            
+            System.out.println("You don't have THAT many recuits.");
+            
+            Menu.checkError(checker);
+        }
+    }
+    
+    //método para crear un luchador de manera aleatoria 
+    public static void crearLuchador(ArrayList <Luchador> list){
+        
+        //este método crea un nuevo Luchador y muestra sus estadísticas por pantalla
+        
+        //aqui se revisa cuantos Luchadores se tiene, de tenerse menos de 25 se crea uno nuevo
+        if (list.size() < 25){
+  
+            list.add(new Luchador());  
+            
+
+            if(list.size() > 1){
+             
+                //invocacion el metodo que revisa los nombres repetidos
+                checkName(list, (list.get( (list.size () - 1) ). getName()));
+
+            }
+          
+          System.out.println("Your new Fighter is: "); 
+         
+          //invocacion al metodo que muestra a un Luchador con todas sus estadisticas
+            Luchador.mostrarLuchadorCompleto(list.get(list.size()-1));  
+        }
+    
+        else{
+            
+        System.out.println("You cannot have any more fighters."); 
+        }
+     }
+    
+    //método para revisar los nombres de los luchadroes y así evitar la repetición de nombres
+    public static void checkName(ArrayList <Luchador> list, String Name){
+        
+        //este método revisa el nombre del último Luchador creado y lo compara con todos los nombres de los Luchadores creados anteriormente
+        //si el nombre del Luchador nuevo ya está en uso, invoca al método "darName", asigna un nuevo nombre y luego lo compara con los nombres de
+        //los luchadores creados hasta que al nuevo Luchador se le asigne un nombre que no esté en uso
+        
+        int i = list.size() - 2;
+       
+        while ( i >= 0){
+                       
+            if(list.get(i).getName() .equals( Name )){
+                    
+                    list.get(list.size()-1).setName(Luchador.darNameLuchador());
+                    
+                    Name = list. get (list.size()-1).getName();
+                    
+                    System.out.println(list. get (list.size()-1).getName());
+                    
+                    i = list.size() - 1;
+            }
+            i--;
+        }       
+    }  
 }
