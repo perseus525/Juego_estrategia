@@ -17,14 +17,15 @@ public class Party {
     
     
      //metodo que pregunta que tipo de party se queire, random o selccionada
-    public static void makePartyAsk(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list){
+    public static void makePartyAsk(ArrayList <Luchador> party, ArrayList <Luchador> list, ArrayList <String> checker){
     
         
         System.out.println("");
+        
         System.out.println("Do you want a random party?(input number))");
-        System.out.println("");
+
         System.out.println("1) yes");
-        System.out.println("");
+
         System.out.println("2) no");
         
         Scanner scan = new Scanner(System.in);
@@ -41,11 +42,11 @@ public class Party {
             partySize = 6;
         }
         
-        makeParty(party, list, numero, partySize);
+        makeParty(party, list, numero, partySize,checker);
     }
 
     //metodo para crear una "Party"
-    private static void makeParty(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list, int numero, int partySize){
+    private static void makeParty(ArrayList <Luchador> party, ArrayList <Luchador> list, int numero, int partySize, ArrayList <String> checker){
  
         int i = 0;
         
@@ -59,7 +60,10 @@ public class Party {
                     break;
                     
                 default: System.out.println("THAT'S NOT ONE OF THE OPTIONS YOU MORON!!!!!!");
+                
                     i=7;
+                    
+                    Menu.checkError(checker);
                     break;
             }
             if ( (i > 0) & (party.size() > 0)){
@@ -68,7 +72,7 @@ public class Party {
                 
                 if(nameCheck == true){
                 
-                Fighter.eliminarLuchador(party, party.size()-1); 
+                ListaLuchadores.eliminarLuchador(party, party.size()-1, checker); 
                 
                 i--;
                 
@@ -85,20 +89,20 @@ public class Party {
     }
    
     //metodo para preguntar que Lucadores se usarán en la party
-    private static void addPartyAsk(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list){
+    private static void addPartyAsk(ArrayList <Luchador> party, ArrayList <Luchador> list){
     
-    listaL.mostrarTodoLuchador(list);
+    ListaLuchadores.mostrarTodoLuchador(list);
     
     int numero;
-     System.out.println("elija un luchador. (input number)");
+     System.out.println("Choose a Fighter. (input number)");
      
         Scanner scan = new Scanner(System.in);
         
-        listaL.mostrarTodoLuchador(list);
+        ListaLuchadores.mostrarTodoLuchador(list);
      
         numero = scan.nextInt();
         
-        if(numero <= party.size()){
+        if(numero <= list.size()){
             
             moveToParty(list,party,(numero-1));       
         }
@@ -109,7 +113,7 @@ public class Party {
     }
     
     //metodo para crear una party "random"
-    private static void addPartyRandom(ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> list){
+    private static void addPartyRandom(ArrayList <Luchador> party, ArrayList <Luchador> list){
         
          int randomNum = ThreadLocalRandom.current().nextInt(1, list.size() + 1);
         
@@ -117,15 +121,15 @@ public class Party {
     }
     
     //metodo para mover los Luhadores desde el "LIstado" hacia la "Party"
-    private static void moveToParty (ArrayList <Fighter.Luchador> list, ArrayList <Fighter.Luchador> party, int fighterNum) {
+    private static void moveToParty (ArrayList <Luchador> list, ArrayList <Luchador> party, int fighterNum) {
 
-        Fighter.Luchador copia = list.get(fighterNum);
+        Luchador copia = list.get(fighterNum);
         
         party.add( copia); 
     }
     
     //variante del método "checkName" que asegura que no se repitan miembros en la Party
-    private static boolean checkNameParty(ArrayList <Fighter.Luchador> party){
+    private static boolean checkNameParty(ArrayList <Luchador> party){
          
         boolean a = false;
 
@@ -135,7 +139,7 @@ public class Party {
         
         while ( i >= 0){
                         
-            if(party.get(i).getNameL() .equals ( party.get(j).getNameL() )){
+            if(party.get(i).getName() .equals ( party.get(j).getName() )){
                 
                 a = true;
             }
@@ -144,4 +148,40 @@ public class Party {
         return a;
     }
     
+    //metodo que revisa si un Luchador esta vivo en la party
+    public static boolean checkHP(Combatiente fighter){
+        
+        boolean alive = true;
+        
+        if (fighter.getHP() < 1){
+        
+            alive = false;
+        }
+        return alive;
+    }
+     
+    //metodo que revisa si un Luchador ha sobrevivido al combate
+    public static void returnToList(ArrayList <Luchador> party,ArrayList <Luchador> list, ArrayList <String> checker){        
+        
+        for (int i = 0; i < party.size(); i++){
+            
+            if(checkHP(party.get(i)) == false ){
+                
+               deadFighter(party.get(i).getName(), list, checker);} 
+        }  
+        
+        party.clear();
+    }
+    
+    //metodo que elimina de la lsita a los Luchadores muertos en combate
+    private static void deadFighter(String name, ArrayList <Luchador> list, ArrayList <String> checker){
+        
+        for(int i =0; i < list.size(); i++){
+        
+            if(name .equals (list.get(i).getName()) ){
+        
+                ListaLuchadores.eliminarLuchador(list, i, checker);
+            }
+        }    
+    }
 }
