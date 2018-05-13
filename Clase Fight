@@ -6,6 +6,8 @@
 package juego_estrategia_prototype;
 
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -42,202 +44,235 @@ public class Fight {
         return condicion;
     }
     
-    //metodo que revisa si un Luchador ha sobrevivido al combate
-    private static void returnToList(ArrayList <Fighter.Luchador> party,ArrayList <Fighter.Luchador> list){        
-        
-        for (int i = 0; i < party.size(); i++){
-            
-            if(checkHPL(party.get(i)) == false ){
-                
-               deadFighter(party.get(i).getNameL(), list);} 
-        }  
-        
-        party.clear();
-    }
+    private static ArrayList <Combatiente> creatFightList(ArrayList <Luchador> party, Combatiente monster){
     
-    //metdo que elimina de la lsita a los Luchadores muertos en combate
-    private static void deadFighter(String name, ArrayList <Fighter.Luchador> list){
+        ArrayList <Combatiente> fightList = new ArrayList <Combatiente>();
+    
+        for (int i = 0; i < party.size(); i++){
         
-        for(int i =0; i < list.size(); i++){
+            fightList.add(party.get(i));
+        }
         
-            if(name .equals (list.get(i).getNameL()) ){
-        
-                Fighter.eliminarLuchador(list, i);
-            }
-        }    
+        fightList.add(monster);
+    
+        return fightList;
     }
     
     //método para pelear contra un monstruo (actualmente en desarrollo)
-    public static void hunt(ArrayList <Objetos.objetoEquipable> inventory, Monstruo.monstruo monster, ArrayList <Fighter.Luchador> list, ArrayList <Fighter.Luchador> party){
+    public static void hunt(ArrayList <ObjetoEquipable> inventory, Monstruo monster, ArrayList <Luchador> list, ArrayList <Luchador> party, ArrayList <String> checker){
         
-       System.out.println("");
-     
-       System.out.println("");
-    
-       System.out.println("This is the Monster you would fight, IF, fights were implemented");
-
-       monster.setItemDrop1();
-       
-       monster.setItemDrop2();
-       
-       monster.setItemDrop3();
-       
        Monstruo.mostrarMonstruo(monster);
+       
+        int numero = askFight();
+            
+            switch (numero) {
+            
+                case 1: Party.makePartyAsk(party, list, checker);
 
+                    int dmgModifier = condicionDado();
      
-       Party.makePartyAsk(party, list);
-
-       int dmgModifier = condicionDado();
-     
-       ArrayList <Fighter.Luchador> fasterThanMonster = new ArrayList <Fighter.Luchador>();
+                    ArrayList <Combatiente> fightList = creatFightList(party ,monster);
         
-       ArrayList <Fighter.Luchador> slowerThanMonster = new ArrayList <Fighter.Luchador>();
-        
-       fasterThanMonsterAsk(monster, party, fasterThanMonster);
-        
-       slowerThanMonsterAsk(monster, party, slowerThanMonster);
+                    sortFightList(fightList);
+                    
+                    int monsterID = findMonster(fightList);
 
-       while (monster.getHPM() > 1){
+                    while (fightList.get(monsterID).getHP() > 1){
 
-           boolean continu = Turn ( fasterThanMonster, monster, slowerThanMonster, dmgModifier, party);
+                        boolean continu = turn ( fightList, dmgModifier, monsterID);
 
-           if (monster. getHPM() < 1){ 
+                        if (fightList.get(monsterID).getHP() < 1){ 
                 
-                Monstruo.droppedItems(monster, inventory);
+                        droppedItems(monster, inventory);
             
-                System.out.println("You won. COngratulations on a succesful hunt.");
-            }
+                        System.out.println("You won. Congratulations on a succesful hunt.");
+                    }
  
-            if ( continu == false){ monster.setHPM(0);
-            System.out.println("You LOST?!?!?!?!?!?!?!"); 
+                        if ( continu == false){ 
+                            
+                        monster.setHP(0);
+                        
+                        System.out.println("You LOST?!?!?!?!?!?!?!"); 
+                        
+                        System.out.println("");
             
-            System.out.println("");
+                        System.out.println("You're either pathetic or a cheater. Get out of here");
             
-            System.out.println("You're either pathetic or a cheater. Get out of here");
-            
-            System.out.println("");
+                        System.out.println("");
+                        }   
+                    }
+                    Party.returnToList(party,list, checker);
+                break;
+                
+                case 2: System.out.println("YOU. OUT OF MY CAMP. NOW!!!!!!");
+                break;
+                
+                default: System.out.println("You don't learn. Do you?");
+                
+                Menu.checkError(checker);
+                break;
             }
-       }
-       returnToList(party,list);
+    }
+    
+    //metodo para ordenar la lista de comabatientes
+    private static void sortFightList(ArrayList <Combatiente> fightList){
+        
+        fightList.sort(Comparator.comparingInt(Combatiente::getSPD));
+    }
+    
+    //metodo para encontrar al Monstruo en la lista de combatiente
+    private static int findMonster(ArrayList <Combatiente> fightList){
+    
+        int monsterID=0;
+        
+        for (int i =0; i < fightList.size(); i++){
+        
+            if (fightList.get(i) instanceof Monstruo) {
+                
+                monsterID=i;
+            }    
+        }
+        return monsterID;
     }
     
     //metodo que dicta un turno del combate
-    public static boolean Turn(ArrayList <Fighter.Luchador> fasterThanMonster, Monstruo.monstruo monster,  ArrayList <Fighter.Luchador> slowerThanMonster, int dmgModifier, ArrayList <Fighter.Luchador> party){
+    public static boolean turn(ArrayList <Combatiente> fightList,  int dmgModifier, int monsterID){
 
+        for (int i =0; i < fightList.size(); i++){
+        
+            System.out.println(fightList.get(i).getHP());
+        }
+        
+        System.out.println("new turn");
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        System.out.println();
+        
+        
         boolean continu = true;
-        
-        boolean checker1;
-        
-        boolean checker2;
-        
-        int target = 100;
-        
-        if(fasterThanMonster.size() > 0){
-            
-            for(int i = 0; i < fasterThanMonster.size();i++ ){
-
-                checker1 = checkHPL(fasterThanMonster.get(i));  
-        
-                if (checker1 == true){ fighterAttacks( fasterThanMonster.get(i), monster, dmgModifier);}
-            }  
-        }
  
-        if(monster.getHPM() > 1){
+        if(fightList.get(monsterID).getHP() > 1){
             
-            
-            if (party.size() > 0){
+            for (int i = 0; i < fightList.size(); i++){
                 
-            target = monsterSelectsTarget(party);
-            }
-            
-            if( (target != 100) & (target < party.size())){
-
-                monsterAttacksParty(monster, party, dmgModifier, target);
-
-                fasterThanMonsterAsk(monster, party, fasterThanMonster);
-                }
-            
-            slowerThanMonsterAsk(monster, party, slowerThanMonster);
-
-            if(slowerThanMonster.size() > 0){
+                if (fightList.get(i) instanceof Luchador){
                 
-                for(int i = 0; i < slowerThanMonster. size(); i++){ 
-
-                    checker2 = checkHPL(slowerThanMonster.get(i));  
-            
-                    if (checker2 == true){ fighterAttacks(slowerThanMonster.get(i), monster, dmgModifier);}
+                    fighterAttacks(fightList.get(i), fightList.get(monsterID), dmgModifier);
+                }
+                
+                if (fightList.get(i) instanceof Monstruo){
+                    
+                    monsterAttacks(fightList, fightList.get(monsterID), dmgModifier);
+                }   
+                
+                if (fightList.get(fightList.size()-1) instanceof Luchador){
+                
+                    if(fightList.get(fightList.size()-1).getHP() < 1){
+                    
+                        continu = false;
+                    }
+                }
+                
+                else{
+                
+                    if(fightList.get(fightList.size()-2).getHP() < 1){
+                    
+                        continu = false;
+                    }
                 }
             }
-            if (target > party.size() ){ continu = false;}
-        }
+        }     
         return continu;
     }
     
+    //metodo para preguntar si se desea pelear o no
+    private static int askFight(){
+        
+        System.out.println("");
+     
+        System.out.println("");
+    
+        System.out.println("Will you fight?(input number)");
+       
+        System.out.println("1) YEEEEEEEEES!!!!!!!");
+     
+        System.out.println("2) No, I'm a coward.");
+       
+        int numero;
+                    
+        Scanner scan = new Scanner(System.in);
+     
+        numero = scan.nextInt();
+            
+        return numero;
+    }
+    
     //metodo para que el Mosntruo ataque a la Party
-    public static void monsterAttacksParty(Monstruo.monstruo monster, ArrayList <Fighter.Luchador> party, int dmgBoost, int target){
+    public static void monsterAttacks(ArrayList <Combatiente> fightList, Combatiente monster, int dmgBoost){
 
         double daño = 0;
 
-        double typeBoost = checkFaction( monster. getTypeM(), party. get(target). getTypeL());
+        int target=0;
+        
+         if (fightList.get(target) instanceof Monstruo){
+                
+                target = target + 1;
+        }
+        
+        while (fightList.get(target).getHP() < 1){
+        
+            target=target+1; 
+        }
+        
+       
+        
+        double typeBoost = checkFaction(monster. getType(), fightList. get(target). getType());
          
         if (dmgBoost >= 0){
             
-        daño = ( ( monster.getATKM() )* typeBoost -  party. get(target). getDEFL() );
+        daño = ( ( monster.getATK() )* typeBoost -  fightList. get(target). getDEF() );
         }
         
          if (dmgBoost < 0){
             
-        daño = ( ( monster.getATKM() )* typeBoost -  party. get(target). getDEFL() )*(-dmgBoost);
+        daño = ( ( monster.getATK() )* typeBoost -  fightList. get(target). getDEF() )*(-dmgBoost);
         }
+         
+         if (daño < 0){
+         
+         daño = 0;
+         }
 
-        double newHP = party. get(target). getHPL() - daño;
+        double newHP = fightList. get(target). getHP() - daño;
         
-        party. get(target). setHPL(newHP);       
-    }
-    
-    //metodo para asignar el "objetivo" del Monstruo
-    private static int monsterSelectsTarget(ArrayList <Fighter.Luchador> party){
-        
-        int target = 0;
-        
-        boolean checker = false;
-        
-        for (int i = 0; i < party.size(); i++){
-            
-            checker = checkHPL(party.get(i));
-            
-            if (checker){target = i;
-                
-                i = 9;
-            }
-        }
-        //condición especial, no hay Luchador Vivo
-        if(checkHPL(party.get(party.size()-1)) == false){
-        
-            target = 10;
-        }
-        return target;
+        fightList. get(target). setHP(newHP);       
     }
     
     //metodo para que Luchador ataque al Mosntruo
-    public static void fighterAttacks(Fighter.Luchador fighter, Monstruo.monstruo monster, double dmgBoost){
+    public static void fighterAttacks(Combatiente fighter, Combatiente monster,double dmgBoost){
     
         double daño = 0;
         
-        double typeBoost = checkFaction(fighter.getTypeL(), monster.getTypeM());
+        double typeBoost = checkFaction(fighter.getType(), monster.getType());
         
         if(dmgBoost > 0 ) {
-            daño = ((fighter.getATKL()*typeBoost) - monster.getDEFM())*dmgBoost;
+            daño = ((fighter.getATK()*typeBoost) - monster.getDEF())*dmgBoost;
         }
         
         if(dmgBoost <= 0) {
-            daño = ((fighter.getATKL()*typeBoost) - monster.getDEFM());
+            daño = ((fighter.getATK()*typeBoost) - monster.getDEF());
         }
         
-        double newHP = monster.getHPM() - daño;
+        if (daño < 0){
+         
+         daño = 0;
+         
+         }
+        double newHP = monster.getHP() - daño;
  
         
-        monster.setHPM(newHP);
+        monster.setHP(newHP);
     }
     
     //metodo que revisa las facciones del atacante y del defenseor
@@ -284,47 +319,46 @@ public class Fight {
         return typeBoost;
     }
     
-    //metodo que revisa si un Luchador esta vivo en la party
-    public static boolean checkHPL(Fighter.Luchador fighter){
+    //metodo para obtener los objetos que tenía el monstruo antes de morir
+    public static void droppedItems(Monstruo monster, ArrayList <ObjetoEquipable> inventory){
+    //creación de los nuevos objetos
+        ObjetoEquipable item1 = monster.getItemDrop1();
+        ObjetoEquipable item2 = monster.getItemDrop2();
+        ObjetoEquipable item3 = monster.getItemDrop3();
+         
+        ///aqui se revisa el tamaño del inventario, y se agregan los nuevos, de haber menos de 10 items
+        if (inventory.size() < 10){   
+            chanceDrop1(inventory,item1);}
+         
+        if (inventory.size() < 10){
+            chanceDrop2(inventory,item2);}
+         
+        if (inventory.size() < 10){
+            chanceDrop3(inventory,item3);}
+    }
+    
+    //metodos para determinar si el mosntruo da o no los items al morir
+    private static void chanceDrop1(ArrayList <ObjetoEquipable> inventory, ObjetoEquipable item){
         
-        boolean alive = true;
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+          
+        if(randomNum <= 60){
+        inventory.add(item);}  
+    }
+    
+    private static void chanceDrop2(ArrayList <ObjetoEquipable> inventory, ObjetoEquipable item){
         
-        if (fighter.getHPL() < 1){
-        
-            alive = false;
-        }
-
-        return alive;
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+          
+         if(randomNum <= 30){
+        inventory.add(item);}  
     }
      
-    //metodo que crea una ArrayList con todos los Luchadores mas rápidos que el Monstruo
-    private static void fasterThanMonsterAsk(Monstruo.monstruo monster,  ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> fasterThanMonster){
-
-        fasterThanMonster.clear();
+    private static void chanceDrop3(ArrayList <ObjetoEquipable> inventory, ObjetoEquipable item){
         
-        for(int i = 0; i < party.size(); i++){
-        
-            if(monster.getSPDM() <= party.get(i).getSPDL()){
-            
-                fasterThanMonster.add (party.get(i));
-            }
-        
-        }
-    }
-    
-    //metodo que crea una ArrayList con todos los Luchadores mas lentos que el Monstruo
-    private static void slowerThanMonsterAsk(Monstruo.monstruo monster,  ArrayList <Fighter.Luchador> party, ArrayList <Fighter.Luchador> slowerThanMonster){
-
-        slowerThanMonster.clear();
-        
-        for(int i = 0; i < party.size(); i++){
-        
-            if(monster.getSPDM() > party.get(i).getSPDL()){
-            
-                slowerThanMonster.add (party.get(i));
-            }
-        
-        }
-    }
-    
+    int randomNum = ThreadLocalRandom.current().nextInt(1, 100 + 1);
+          
+         if(randomNum <= 10){
+        inventory.add(item);}  
+    }   
 }
