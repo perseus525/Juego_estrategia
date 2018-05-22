@@ -1,0 +1,158 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package juego_estrategia_prototype;
+
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
+/**
+ *
+ * @author marclo
+ */
+public class GUI extends javax.swing.JFrame {
+ 
+    public GUI(ArrayList <String> checker, ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <Luchador> party){
+
+        
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setTitle("Testing, testing");
+    setSize(700,700);
+    
+    //JLabel textLabel1 = new JLabel("I'm a label in the window",SwingConstants.CENTER);
+    //setPreferredSize(new Dimension (300,100));
+    //getContentPane().add(textLabel, BorderLayout.CENTER);
+        
+        JPanel jPanel1 = new javax.swing.JPanel();
+        JButton bCheckFighters = new javax.swing.JButton("Check Fighters");
+        JButton bCheckInventory = new javax.swing.JButton("Check Inventory");
+        JButton bCreateFighter = new javax.swing.JButton("Create Fighter");
+        JButton bDismissFighter = new javax.swing.JButton("Dismiss a Fighter");
+        JButton bFight = new javax.swing.JButton("FIGHT!!!!!!!");
+        JButton bLeave = new javax.swing.JButton("Wuss out");
+        //jPanel2 = new javax.swing.JPanel();
+        //jLabel1 = new javax.swing.JLabel();
+        //jLabel2 = new javax.swing.JLabel();
+        JTextField tNumero01 = new javax.swing.JTextField("");
+        JTextField tNumero02 = new javax.swing.JTextField("");
+        //jPanel3 = new javax.swing.JPanel();
+        //jLabel3 = new javax.swing.JLabel();
+        JTextField tResultado = new javax.swing.JTextField("Resultado");
+        //jPanel4 = new javax.swing.JPanel();
+        JButton bSalir = new javax.swing.JButton();
+        JButton bLimpiar = new javax.swing.JButton();
+        JButton bElevar = new javax.swing.JButton();
+
+        jPanel1.setLayout(null);
+        
+        bCheckFighters.setBounds(10, 10, 100, 20);
+        bCheckInventory.setBounds(120, 10, 100, 20);
+        bCreateFighter.setBounds(230, 10, 100, 20);
+        bDismissFighter.setBounds(340, 10, 100, 20);
+        bFight.setBounds(440, 10, 100, 20);
+        bLeave.setBounds(540, 10, 100, 20);
+        tNumero01.setBounds(70, 70, 100, 20);
+        tNumero02.setBounds(180, 70, 100, 20);
+        
+        jPanel1.add(bCheckFighters);
+        jPanel1.add(bCheckInventory);
+        jPanel1.add(bCreateFighter);
+        jPanel1.add(bDismissFighter);
+        jPanel1.add(bFight);
+        jPanel1.add(bLeave);
+        jPanel1.add(tNumero01);
+        jPanel1.add(tNumero02);
+        
+        
+
+        
+        this.getContentPane().add(jPanel1);
+        
+        setVisible(true);
+        
+        
+        bCheckFighters.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkFighters(checker, list,inventory);
+            }
+        });
+        
+        bCheckInventory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                checkinventory( checker,inventory);
+            }
+        });
+         
+        bCreateFighter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createFighter(list);
+            }
+        });
+          
+        bDismissFighter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                dismissFighter( list, inventory, checker);
+            }
+        });
+        
+        bFight.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fight(inventory, list, party, checker);
+            }
+        });
+        
+        bLeave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                stuffHappened(evt,checker , list, inventory, party);
+            }
+        });
+        
+        
+    }
+    
+    
+    protected void stuffHappened(java.awt.event.ActionEvent evt,ArrayList <String> checker, ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory, ArrayList <Luchador> party) {                                         
+        // TODO add your handling code here:
+        System.out.println("patata");
+        Menu.menu(checker , list, inventory, party);
+    }
+    
+    protected void checkFighters(ArrayList <String> checker, ArrayList <Luchador> list, ArrayList <ObjetoEquipable> inventory) {                                         
+        // TODO add your handling code here:
+        ListaLuchadores.mostrarListaAsk( list,inventory,checker);
+    }
+    
+    protected void checkinventory(ArrayList <String> checker, ArrayList <ObjetoEquipable> inventory) {                                         
+        // TODO add your handling code here:
+        Inventario.verInventarioAsk(inventory,checker);
+    }
+    
+    protected void createFighter( ArrayList <Luchador> list) {                                         
+        // TODO add your handling code here:
+        ListaLuchadores.crearLuchador (list);
+    }
+    
+    protected void dismissFighter( ArrayList <Luchador> list,ArrayList <ObjetoEquipable> inventory,ArrayList <String> checker) {                                         
+        // TODO add your handling code here:
+        ListaLuchadores.eliminarLuchadorAsk(list, inventory, checker);
+    }
+    
+    protected void fight( ArrayList <ObjetoEquipable> inventory, ArrayList <Luchador> list, ArrayList <Luchador> party, ArrayList <String> checker) {                                         
+        // TODO add your handling code here:                    
+        Fight.hunt(inventory, list, party,checker);
+    }
+    
+    
+    
+    
+   /* public static void main(String [] args){
+    
+    GUI a = new GUI();
+    }
+    */
+}
